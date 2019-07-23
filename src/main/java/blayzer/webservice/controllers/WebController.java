@@ -35,7 +35,7 @@ public class WebController {
         this.shaPasswordEncoder = shaPasswordEncoder;
     }
 
-    @GetMapping(value = {"/", "/index"})
+    @GetMapping({"/", "/index"})
     public String index(Model model) {
         model.addAttribute("message", "RESTful API is working.");
         return "index";

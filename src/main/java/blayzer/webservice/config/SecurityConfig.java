@@ -2,7 +2,6 @@ package blayzer.webservice.config;
 
 import blayzer.webservice.service.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -52,16 +51,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .passwordParameter("j_password")
                 // даем доступ к форме логина всем
                 .permitAll();
-
-        http.logout()
-                // разрешаем делать логаут всем
-                .permitAll()
-                // указываем URL логаута
-                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                // указываем URL при удачном логауте
-                .logoutSuccessUrl("/index?logout")
-                // делаем не валидной текущую сессию
-                .invalidateHttpSession(true);
+        http
+                .logout()
+                .logoutSuccessUrl("/");
 
     }
 

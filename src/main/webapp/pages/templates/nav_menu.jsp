@@ -41,7 +41,11 @@
                 <span class="sr-only">Toggle Dropdown</span>
             </button>
             <div class="dropdown-menu dropdown-menu-right">
-                <a class="dropdown-item" href="/logout">Выйти</a>
+                <form method="post" action="/logout">
+                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                    <input type="submit" class="dropdown-item" value="Выйти"/>
+                </form>
+
             </div>
         </sec:authorize>
     </div>

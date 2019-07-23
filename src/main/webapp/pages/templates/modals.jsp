@@ -15,6 +15,7 @@
 	<div class="container" style="width: 300px;">
 		<c:url value="/j_spring_security_check" var="loginUrl" />
                     <form action="${loginUrl}" method="post">
+						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                         <input type="text" class="form-control md-form mb-2" name="j_username" placeholder="Логин" required autofocus value="test">
                         <input type="password" class="form-control md-form mb-4" name="j_password" placeholder="Пароль" required value="1234">
                         <button class="btn btn-primary btn-block" type="submit">Войти</button>

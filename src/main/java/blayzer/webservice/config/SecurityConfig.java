@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
@@ -32,12 +33,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        // выключаем защиту от CSRF атак
-        http.csrf()
-                .disable()
-                // указываем правила запросов
-                // по которым будет определятся доступ к ресурсам и остальным данным
-                .authorizeRequests()
+        // указываем правила запросов
+        // по которым будет определятся доступ к ресурсам и остальным данным
+        http.authorizeRequests()
                 .antMatchers("/resources/**", "/**").permitAll()
                 .anyRequest().permitAll()
                 .and();
@@ -59,7 +57,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // разрешаем делать логаут всем
                 .permitAll()
                 // указываем URL логаута
-                .logoutUrl("/logout")
+                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                 // указываем URL при удачном логауте
                 .logoutSuccessUrl("/index?logout")
                 // делаем не валидной текущую сессию

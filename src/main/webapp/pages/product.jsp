@@ -72,7 +72,7 @@
 							<div class="col-4 product-data__column text-break">
 								<h2>Описание</h2>
 								<ol>
-									<li>${product.desciption}</li>
+									<li>${product.description}</li>
 								</ol>
 							</div>
 							<div class="col-4 product-data__column">

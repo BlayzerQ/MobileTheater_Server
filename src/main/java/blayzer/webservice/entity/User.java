@@ -1,39 +1,29 @@
-package blayzer.webservice.entities;
+package blayzer.webservice.entity;
 
-import blayzer.webservice.entities.enums.UserRoleEnum;
+import blayzer.webservice.entity.enums.UserRoleEnum;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "users")
+@Getter
+@Setter
+@NoArgsConstructor
 public class User {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Getter
-    @Setter
     private Long id;
-
-    @Getter
-    @Setter
     private String login;
-
-    @Getter
-    @Setter
     private String email;
-
-    @Getter
-    @Setter
     private String password;
-
-    @Getter
-    @Setter
-    private String role = UserRoleEnum.USER.toString();
-
-    @Getter
-    @Setter
+    private UserRoleEnum role = UserRoleEnum.USER;
     private int money = 0;
 
     public User(String login, String email, String password) {
@@ -45,9 +35,5 @@ public class User {
     public User(String login, String password) {
         this.login = login;
         this.password = password;
-    }
-
-    public User() {
-
     }
 }

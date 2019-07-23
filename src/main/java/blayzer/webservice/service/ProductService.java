@@ -1,7 +1,6 @@
 package blayzer.webservice.service;
 
-import blayzer.webservice.entities.News;
-import blayzer.webservice.entities.Product;
+import blayzer.webservice.entity.Product;
 
 import java.util.List;
 

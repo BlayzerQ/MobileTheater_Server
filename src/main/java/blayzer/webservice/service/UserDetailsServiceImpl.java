@@ -1,7 +1,7 @@
 package blayzer.webservice.service;
 
-import blayzer.webservice.entities.User;
-import blayzer.webservice.entities.enums.UserRoleEnum;
+import blayzer.webservice.entity.User;
+import blayzer.webservice.entity.enums.UserRoleEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

@@ -1,6 +1,6 @@
 package blayzer.webservice.repository;
 
-import blayzer.webservice.entities.Task;
+import blayzer.webservice.entity.Task;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

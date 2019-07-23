@@ -1,4 +1,4 @@
-package blayzer.webservice.entities.enums;
+package blayzer.webservice.entity.enums;
 
 public enum UserRoleEnum {
 

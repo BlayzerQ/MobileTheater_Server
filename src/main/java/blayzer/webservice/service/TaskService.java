@@ -1,6 +1,6 @@
 package blayzer.webservice.service;
 
-import blayzer.webservice.entities.Task;
+import blayzer.webservice.entity.Task;
 
 import java.util.List;
 

@@ -1,6 +1,6 @@
 package blayzer.webservice.service;
 
-import blayzer.webservice.entities.News;
+import blayzer.webservice.entity.News;
 
 import java.util.List;
 

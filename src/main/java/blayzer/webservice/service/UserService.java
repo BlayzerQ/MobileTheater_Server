@@ -1,6 +1,6 @@
 package blayzer.webservice.service;
 
-import blayzer.webservice.entities.User;
+import blayzer.webservice.entity.User;
 
 import java.util.List;
 

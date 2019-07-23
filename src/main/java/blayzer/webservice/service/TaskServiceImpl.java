@@ -1,8 +1,6 @@
 package blayzer.webservice.service;
 
-import blayzer.webservice.entities.News;
-import blayzer.webservice.entities.Task;
-import blayzer.webservice.repository.NewsRepository;
+import blayzer.webservice.entity.Task;
 import blayzer.webservice.repository.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

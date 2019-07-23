@@ -14,7 +14,6 @@ public class WebserviceApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(WebserviceApplication.class, args);
 		System.out.println("INFO: WebServer has been started!");
-
 	}
 
 }

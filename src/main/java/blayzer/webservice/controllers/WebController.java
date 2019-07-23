@@ -95,7 +95,6 @@ public class WebController {
         model.addObject("message", message);
         model.addObject("user", new User());
         return model;
-        //return new ModelAndView("registration", "user", new User());
     }
 
     @PostMapping("/registration")

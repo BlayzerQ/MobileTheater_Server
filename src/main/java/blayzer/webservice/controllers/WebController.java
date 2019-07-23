@@ -1,11 +1,10 @@
-package blayzer.webservice.web;
+package blayzer.webservice.controllers;
 
 import blayzer.webservice.entity.User;
 import blayzer.webservice.service.NewsService;
 import blayzer.webservice.service.ProductService;
 import blayzer.webservice.service.TaskService;
 import blayzer.webservice.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,16 +21,19 @@ import java.security.Principal;
 @Controller
 public class WebController {
 
-    @Autowired
-    UserService userService;
-    @Autowired
-    NewsService newsService;
-    @Autowired
-    ProductService productService;
-    @Autowired
-    TaskService taskService;
-    @Autowired
-    private ShaPasswordEncoder shaPasswordEncoder;
+    private final UserService userService;
+    private final NewsService newsService;
+    private final ProductService productService;
+    private final TaskService taskService;
+    private final ShaPasswordEncoder shaPasswordEncoder;
+
+    public WebController(UserService userService, NewsService newsService, ProductService productService, TaskService taskService, ShaPasswordEncoder shaPasswordEncoder) {
+        this.userService = userService;
+        this.newsService = newsService;
+        this.productService = productService;
+        this.taskService = taskService;
+        this.shaPasswordEncoder = shaPasswordEncoder;
+    }
 
     @GetMapping(value = {"/", "/index"})
     public String index(Model model) {
@@ -39,78 +41,64 @@ public class WebController {
         return "index";
     }
 
-    @GetMapping(value = "/about")
-    public String about(Model model) {
-        return "about";
-    }
-
-    @GetMapping(value = "/account/purchases")
-    public String purchases(Model model) {
-        return "purchases";
-    }
-
-    @GetMapping(value = "/account/balance")
-    public String balance(Model model) {
-        return "balance";
-    }
-
-    @GetMapping(value = "/account")
+    @GetMapping("/account")
     public String account(Model model, HttpServletRequest request) {
         Principal principal = request.getUserPrincipal();
-        if(principal != null)
+        if (principal != null)
             model.addAttribute("user", userService.getByName(principal.getName()));
         return "account";
     }
 
-    @GetMapping(value = "/news")
+    @GetMapping("/news")
     public String news(Model model) {
         model.addAttribute("news", newsService.getAll());
         return "news";
     }
 
-    @GetMapping(value = "/tasks")
+    @GetMapping("/tasks")
     public String tasks(Model model) {
         model.addAttribute("tasks", taskService.getAll());
         return "tasks";
     }
 
-    @GetMapping(value = "/tasks/task/{id}")
+    @GetMapping("/tasks/task/{id}")
     public String taskItem(@PathVariable final long id, Model model) {
         model.addAttribute("task", taskService.getByID(id));
         return "task";
     }
 
-    @GetMapping(value = "/catalog")
+    @GetMapping("/catalog")
     public String catalog(Model model) {
         model.addAttribute("products", productService.getAll());
         return "catalog";
     }
 
-    @GetMapping(value = "/catalog/item/{id}")
+    @GetMapping("/catalog/item/{id}")
     public String catalogItem(@PathVariable final long id, Model model) {
         model.addAttribute("product", productService.getByID(id));
         return "product";
     }
 
-    @GetMapping(value = "/payment/{id}")
+    @GetMapping("/payment/{id}")
     public String payment(@PathVariable final long id, Model model) {
         return "product";
     }
 
-    @GetMapping(value = "/convert")
+    @GetMapping("/convert")
     public Model convert(Model model) {
         return model;
     }
 
-    @GetMapping(value = "/registration")
-    public @ResponseBody ModelAndView registration(@ModelAttribute(value="message") String message, ModelAndView model) {
+    @GetMapping("/registration")
+    public @ResponseBody
+    ModelAndView registration(@ModelAttribute(value = "message") String message, ModelAndView model) {
         model.addObject("message", message);
         model.addObject("user", new User());
         return model;
         //return new ModelAndView("registration", "user", new User());
     }
 
-    @PostMapping(value = "/registration")
+    @PostMapping("/registration")
     public String submit(@Valid @ModelAttribute("employee") User userform, BindingResult result, HttpServletRequest request, ModelAndView model, RedirectAttributes redirectAttributes) {
         if (result.hasErrors()) {
             return "error";
@@ -122,7 +110,7 @@ public class WebController {
 
         //Получение данные из формы и добавление пользователя в базу данных
         User user = new User(login, email, shaPasswordEncoder.encodePassword(password, "")); //соль отсутствует, возможно стоит добавить
-        if(userService.getByName(login) != null) {
+        if (userService.getByName(login) != null) {
             redirectAttributes.addAttribute("message", "Логин уже используется");
             return "redirect:/registration";
         }
@@ -138,12 +126,7 @@ public class WebController {
         return "redirect:/index";
     }
 
-    @GetMapping(value = "/resetpassword")
-    public String resetpassword(Model model) {
-        return "resetpassword";
-    }
-
-    @PostMapping(value = "/convertPost")
+    @PostMapping("/convertPost")
     @ResponseBody
     public String convertPost(Model model) {
         return "Empty Data";

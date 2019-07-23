@@ -12,6 +12,7 @@ import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.JstlView;
 import org.springframework.web.servlet.view.UrlBasedViewResolver;
@@ -24,6 +25,14 @@ public class WebAppConfig extends WebMvcConfigurerAdapter {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/pages/**").addResourceLocations("/pages/");
+    }
+
+    @Override
+    public void addViewControllers(ViewControllerRegistry registry) {
+        registry.addViewController("/about").setViewName("about");
+        registry.addViewController("/account/purchases").setViewName("purchases");
+        registry.addViewController("/account/balance").setViewName("balance");
+        registry.addViewController("/resetpassword").setViewName("resetpassword");
     }
 
     @Bean

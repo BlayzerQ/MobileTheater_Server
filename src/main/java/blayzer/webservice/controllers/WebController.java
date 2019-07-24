@@ -5,7 +5,7 @@ import blayzer.webservice.service.NewsService;
 import blayzer.webservice.service.ProductService;
 import blayzer.webservice.service.TaskService;
 import blayzer.webservice.service.UserService;
-import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -25,14 +25,14 @@ public class WebController {
     private final NewsService newsService;
     private final ProductService productService;
     private final TaskService taskService;
-    private final ShaPasswordEncoder shaPasswordEncoder;
+    private final PasswordEncoder passwordEncoder;
 
-    public WebController(UserService userService, NewsService newsService, ProductService productService, TaskService taskService, ShaPasswordEncoder shaPasswordEncoder) {
+    public WebController(UserService userService, NewsService newsService, ProductService productService, TaskService taskService, PasswordEncoder passwordEncoder) {
         this.userService = userService;
         this.newsService = newsService;
         this.productService = productService;
         this.taskService = taskService;
-        this.shaPasswordEncoder = shaPasswordEncoder;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @GetMapping({"/", "/index"})
@@ -106,7 +106,7 @@ public class WebController {
         String password = userform.getPassword();
 
         //Получение данные из формы и добавление пользователя в базу данных
-        User user = new User(login, email, shaPasswordEncoder.encodePassword(password, "")); //соль отсутствует, возможно стоит добавить
+        User user = new User(login, email, passwordEncoder.encode(password));
         if (userService.getByName(login) != null) {
             redirectAttributes.addAttribute("message", "Логин уже используется");
             return "redirect:/registration";
@@ -143,7 +143,7 @@ public class WebController {
         if(!email.equals(""))
             loggeduser.setEmail(email);
         if(!password.equals(""))
-            loggeduser.setPassword(shaPasswordEncoder.encodePassword(password, "")); //соль отсутствует, возможно стоит добавить
+            loggeduser.setPassword(passwordEncoder.encode(password));
 
         userService.editUser(loggeduser);
 

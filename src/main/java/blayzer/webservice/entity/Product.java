@@ -1,9 +1,8 @@
 package blayzer.webservice.entity;
 
 import blayzer.webservice.entity.enums.ProductTypeEnum;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,8 +12,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "products")
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 public class Product {
     @Id

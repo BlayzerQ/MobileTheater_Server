@@ -25,7 +25,7 @@ public class UserServiceImpl implements UserService {
         if (user == null) {
             return null;
         }
-        return new UserDTO(user);
+        return new UserDTO(user.getLogin(), user.getEmail(), user.getPassword());
     }
 
     @Override

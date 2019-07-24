@@ -8,12 +8,8 @@ import blayzer.webservice.service.UserService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.security.Principal;
@@ -85,42 +81,6 @@ public class WebController {
     @GetMapping("/convert")
     public Model convert(Model model) {
         return model;
-    }
-
-    @GetMapping("/registration")
-    public @ResponseBody
-    ModelAndView registration(@ModelAttribute(value = "message") String message, ModelAndView model) {
-        model.addObject("message", message);
-        model.addObject("user", new User());
-        return model;
-    }
-
-    @PostMapping("/registration")
-    public String submit(@Valid @ModelAttribute("employee") User userform, BindingResult result, HttpServletRequest request, ModelAndView model, RedirectAttributes redirectAttributes) {
-        if (result.hasErrors()) {
-            return "error";
-        }
-
-        String login = userform.getLogin();
-        String email = userform.getEmail();
-        String password = userform.getPassword();
-
-        //Получение данные из формы и добавление пользователя в базу данных
-        User user = new User(login, email, passwordEncoder.encode(password));
-        if (userService.getByName(login) != null) {
-            redirectAttributes.addAttribute("message", "Логин уже используется");
-            return "redirect:/registration";
-        }
-        userService.addUser(user);
-
-        //Автоматический вход после регистрации
-        try {
-            request.login(login, password);
-        } catch (ServletException e) {
-            e.printStackTrace();
-        }
-
-        return "redirect:/index";
     }
 
     @GetMapping("/account/edit")

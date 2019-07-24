@@ -2,6 +2,7 @@ package blayzer.webservice.service;
 
 import blayzer.webservice.entity.User;
 import blayzer.webservice.repository.UserRepository;
+import blayzer.webservice.validation.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +17,15 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getByName(String name) {
         return userRepository.findByName(name);
+    }
+
+    @Override
+    public UserDTO getByEmail(String email) {
+        User user = userRepository.findByEmail(email);
+        if (user == null) {
+            return null;
+        }
+        return new UserDTO(user);
     }
 
     @Override

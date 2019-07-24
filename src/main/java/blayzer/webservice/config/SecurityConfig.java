@@ -1,6 +1,5 @@
 package blayzer.webservice.config;
 
-import blayzer.webservice.service.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
@@ -9,16 +8,20 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(securedEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    private UserDetailsServiceImpl userDetailsService;
-    @Autowired
-    private ShaPasswordEncoder shaPasswordEncoder;
+    private final UserDetailsService userDetailsService;
+    private final ShaPasswordEncoder shaPasswordEncoder;
+
+    public SecurityConfig(UserDetailsService userDetailsService, ShaPasswordEncoder shaPasswordEncoder) {
+        this.userDetailsService = userDetailsService;
+        this.shaPasswordEncoder = shaPasswordEncoder;
+    }
 
     // регистрируем нашу реализацию UserDetailsService
     // а также PasswordEncoder для приведения пароля в формат SHA1
@@ -37,9 +40,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/resources/**", "/**").permitAll()
                 .anyRequest().permitAll()
-                .and();
-
-        http
+                .and()
                 .formLogin()
                 // указываем страницу с формой логина
                 .loginPage("/index")
@@ -51,8 +52,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .usernameParameter("j_username")
                 .passwordParameter("j_password")
                 // даем доступ к форме логина всем
-                .permitAll();
-        http
+                .permitAll()
+                .and()
                 .logout()
                 .logoutSuccessUrl("/index?logout");
 

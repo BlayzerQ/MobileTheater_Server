@@ -1,15 +1,9 @@
 package blayzer.webservice.config;
 
-import blayzer.webservice.service.UserDetailsServiceImpl;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration;
-import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
@@ -49,10 +43,4 @@ public class WebAppConfig extends WebMvcConfigurerAdapter {
     public ShaPasswordEncoder getShaPasswordEncoder(){
         return new ShaPasswordEncoder();
     }
-
-    @Bean
-    public UserDetailsService getUserDetailsService(){
-        return new UserDetailsServiceImpl();
-    }
-
 }

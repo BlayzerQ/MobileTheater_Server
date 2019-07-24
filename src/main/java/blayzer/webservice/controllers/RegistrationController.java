@@ -34,9 +34,9 @@ public class RegistrationController {
 
     @PostMapping("/registration")
     public String processRegistration(@Valid @ModelAttribute("user") UserDTO userDto, Errors errors, HttpServletRequest request) {
-        if (errors.hasErrors()) {
+        if (errors.hasErrors())
             return "registration";
-        }
+
         String login = userDto.getLogin();
         String password = userDto.getPassword();
         User user = new User(login, userDto.getEmail(), passwordEncoder.encode(password));

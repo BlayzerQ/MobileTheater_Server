@@ -112,6 +112,7 @@
 									<a href="/catalog/item/${item.id}" class="btn btn-block btn-outline-primary">Подробнее</a> 
 								</div>
 								<div class="card-footer">
+									<small class="text-muted">Тип продукта: ${item.type}</small><br>
 									<small class="text-muted">Последнее обновление: null</small>
 								</div>
 							</div>

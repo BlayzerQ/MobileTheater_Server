@@ -42,10 +42,8 @@ public class WebController {
     }
 
     @GetMapping("/account")
-    public String account(Model model, HttpServletRequest request) {
-        Principal principal = request.getUserPrincipal();
-        if (principal != null)
-            model.addAttribute("user", userService.getByName(principal.getName()));
+    public String account(Model model, HttpServletRequest request, Principal principal) {
+        model.addAttribute("user", userService.getByName(principal.getName()));
         return "account";
     }
 
@@ -123,6 +121,33 @@ public class WebController {
         }
 
         return "redirect:/index";
+    }
+
+    @GetMapping("/account/edit")
+    public String accountedit(Model model) {
+        model.addAttribute("user", new User());
+        return "/accountedit";
+    }
+
+    @PostMapping("/account/edit")
+    public String accountedit(@Valid @ModelAttribute("user") User userform, HttpServletRequest request, Principal principal) {
+        User loggeduser = userService.getByName(principal.getName());
+
+        //Получение данные из формы и обновление пользователя в базе данных
+        String login = userform.getLogin();
+        String email = userform.getEmail();
+        String password = userform.getPassword();
+
+        if(!login.equals(""))
+            loggeduser.setLogin(login);
+        if(!email.equals(""))
+            loggeduser.setEmail(email);
+        if(!password.equals(""))
+            loggeduser.setPassword(shaPasswordEncoder.encodePassword(password, "")); //соль отсутствует, возможно стоит добавить
+
+        userService.editUser(loggeduser);
+
+        return "redirect:/account";
     }
 
     @PostMapping("/convertPost")

@@ -33,12 +33,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         // указываем правила запросов
         // по которым будет определятся доступ к ресурсам и остальным данным
-        http.authorizeRequests()
+        http
+                .authorizeRequests()
                 .antMatchers("/resources/**", "/**").permitAll()
                 .anyRequest().permitAll()
                 .and();
 
-        http.formLogin()
+        http
+                .formLogin()
                 // указываем страницу с формой логина
                 .loginPage("/index")
                 // указываем action с формы логина
@@ -52,7 +54,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll();
         http
                 .logout()
-                .logoutSuccessUrl("/");
+                .logoutSuccessUrl("/index?logout");
 
     }
 

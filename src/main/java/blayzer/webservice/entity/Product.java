@@ -26,5 +26,6 @@ public class Product {
     private String productVersion;
     private String mcVersion;
     private String changelog;
+    private String developer;
     private int price;
 }

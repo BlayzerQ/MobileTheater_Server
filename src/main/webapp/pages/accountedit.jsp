@@ -74,14 +74,17 @@
 						<div class="form-group">
 							<form:label path="login">Логин</form:label>
 							<form:input path="login" class="form-control" placeholder="Введите Логин"/>
+							<small><form:errors path="login" class="errors"/></small>
 						</div>
 						<div class="form-group">
 							<form:label path="email" >E-mail</form:label>
 							<form:input path="email" class="form-control" placeholder="Введите E-mail"/>
+							<small><form:errors path="email" class="errors"/></small>
 						</div>
 						<div class="form-group">
 							<form:label path="password">Пароль</form:label>
 							<form:input path="password" class="form-control" placeholder="Введите Пароль"/>
+							<small><form:errors path="password" class="errors"/></small>
 						</div>
 						<!-- <div class="form-group">
 							<label for="password2" class="control-label">Повтор пароля</label>

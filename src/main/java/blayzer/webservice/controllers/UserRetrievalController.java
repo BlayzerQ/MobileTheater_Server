@@ -1,6 +1,8 @@
 package blayzer.webservice.controllers;
 
-import blayzer.webservice.entity.User;
+import blayzer.webservice.bussines.objects.User;
+import blayzer.webservice.controllers.exceptions.UserNotFoundException;
+import blayzer.webservice.presentation.dto.RegistrationForm;
 import blayzer.webservice.service.UserService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,19 +20,15 @@ public class UserRetrievalController {
     }
 
     @GetMapping("/getUserByID/{id}")
-    public User getUserById(@PathVariable final long id) {
-        User user = userService.getByID(id);
-        if(user == null)
-            return new User(null, null, null);
-        return user;
+    public RegistrationForm getUserById(@PathVariable final long id) {
+        User user = userService.getByID(id).orElseThrow(UserNotFoundException::new);
+        return new RegistrationForm(user.getLogin(), user.getEmail(), user.getPassword());
     }
 
     @GetMapping("/getUserByName/{name}")
-    public User getUserByName(@PathVariable final String name) {
-        User user = userService.getByName(name);
-        if(user == null)
-            return new User(null, null, null);
-        return user;
+    public RegistrationForm getUserByName(@PathVariable final String name) {
+        User user = userService.getByName(name).orElseThrow(UserNotFoundException::new);
+        return new RegistrationForm(user.getLogin(), user.getEmail(), user.getPassword());
     }
 
 }

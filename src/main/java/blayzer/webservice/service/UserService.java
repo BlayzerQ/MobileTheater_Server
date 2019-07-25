@@ -1,17 +1,25 @@
 package blayzer.webservice.service;
 
-import blayzer.webservice.entity.User;
-import blayzer.webservice.validation.UserDTO;
+import blayzer.webservice.bussines.objects.User;
+import blayzer.webservice.dal.dao.entity.UserEntity;
 
+import javax.annotation.Nullable;
 import java.util.List;
+import java.util.Optional;
 
 public interface UserService {
 
-    User getByName(String username);
-    UserDTO getByEmail(String email);
-    User getByID(Long id);
-    User addUser(User user);
-    User editUser(User user);
+    Optional<User> getByName(String username);
+
+    Optional<User> getByEmail(@Nullable String email);
+
+    Optional<User> getByID(Long id);
+
+    void persist(User user);
+
+    void persist(UserEntity user);
+
     void delete(Long id);
+
     List<User> getAll();
 }

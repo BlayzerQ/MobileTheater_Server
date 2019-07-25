@@ -1,8 +1,8 @@
 package blayzer.webservice.controllers;
 
-import blayzer.webservice.entity.User;
+import blayzer.webservice.bussines.objects.User;
+import blayzer.webservice.presentation.dto.RegistrationForm;
 import blayzer.webservice.service.UserService;
-import blayzer.webservice.validation.UserDTO;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
@@ -28,19 +28,22 @@ public class RegistrationController {
 
     @GetMapping("/registration")
     public ModelAndView registration(ModelAndView model) {
-        model.addObject("user", new UserDTO());
+        model.addObject("user", new RegistrationForm());
         return model;
     }
 
     @PostMapping("/registration")
-    public String processRegistration(@Valid @ModelAttribute("user") UserDTO userDto, Errors errors, HttpServletRequest request) {
+    public String processRegistration(@Valid @ModelAttribute("user") RegistrationForm registrationForm, Errors errors, HttpServletRequest request) {
         if (errors.hasErrors()) {
             return "registration";
         }
-        String login = userDto.getLogin();
-        String password = userDto.getPassword();
-        User user = new User(login, userDto.getEmail(), passwordEncoder.encode(password));
-        userService.addUser(user);
+        String login = registrationForm.getLogin();
+        String password = registrationForm.getPassword();
+        User user = new User();
+        user.setLogin(login);
+        user.setEmail(registrationForm.getEmail());
+        user.setPassword(passwordEncoder.encode(password));
+        userService.persist(user);
         try {
             request.login(login, password);
         } catch (ServletException e) {

@@ -86,10 +86,19 @@
 							<form:input path="password" class="form-control" placeholder="Введите Пароль"/>
 							<small><form:errors path="password" class="errors"/></small>
 						</div>
-						<!-- <div class="form-group">
-							<label for="password2" class="control-label">Повтор пароля</label>
-							<input type="password" id="password2" name="password2" class="form-control" placeholder="Повторите пароль" required="required">
-						</div> -->
+						<div class="form-group">
+							<label for="confirm" class="control-label">Повтор пароля</label>
+							<input type="password" id="confirm" class="form-control" placeholder="Введите Пароль ещё раз" oninput="check(this)">
+							<script>
+								function check(input) {
+									if (input.value !== document.getElementById('password').value) {
+										input.setCustomValidity('Пароли не совпадают!');
+									} else {
+										input.setCustomValidity('');
+									}
+								}
+							</script>
+						</div>
 						<div class="separator"></div>
 						<div class="form-group">
 							<div class="submit-button">

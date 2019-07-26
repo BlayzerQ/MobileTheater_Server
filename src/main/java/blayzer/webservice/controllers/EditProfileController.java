@@ -27,7 +27,9 @@ public class EditProfileController {
 
     @GetMapping("/account/edit")
     public String accountedit(Model model, @AuthenticationPrincipal UserEntity user) {
-        model.addAttribute("user", new EditProfileForm(user.getLogin(), user.getEmail()));
+        model.addAttribute("user", new EditProfileForm());
+        model.addAttribute("currentLogin", user.getLogin());
+        model.addAttribute("currentEmail", user.getEmail());
         return "accountedit";
     }
 

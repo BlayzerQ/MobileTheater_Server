@@ -46,9 +46,9 @@
 
         <!-- Current page main code -->
 		<div class="content">
-		
+
 			<h1 class="px-3 pb-4 text-center">Личный кабинет</h1>
-			
+
 			<sec:authorize access="!isAuthenticated()">
 				<center><p>Для выполнения этого действия требуется авторизация</p></center>
 				<br>
@@ -65,20 +65,20 @@
 						<a class="nav-link " href="/account/balance">Пополнение счета</a>
 					</li>
 				</ul>
-			
+
 				<div class="separator mt-2 mb-5"></div>
-			
+
 				<div class="d-flex justify-content-center">
 				<div class="col-4 border rounded px-3 pt-3">
 					<form:form method="POST" action="${pageContext.request.contextPath}/account/edit" modelAttribute="user">
 						<div class="form-group">
 							<form:label path="login">Логин</form:label>
-							<form:input path="login" class="form-control" placeholder="Введите Логин"/>
+							<form:input path="login" class="form-control" placeholder="${currentLogin}"/>
 							<small><form:errors path="login" class="errors"/></small>
 						</div>
 						<div class="form-group">
 							<form:label path="email" >E-mail</form:label>
-							<form:input path="email" class="form-control" placeholder="Введите E-mail"/>
+							<form:input path="email" class="form-control" placeholder="${currentEmail}"/>
 							<small><form:errors path="email" class="errors"/></small>
 						</div>
 						<div class="form-group">

@@ -15,7 +15,7 @@ public class NewsServiceImpl implements NewsService {
 
     @Override
     public News getByID(Long id) {
-        return newsRepository.findOne(id);
+        return newsRepository.findById(id).get();
     }
 
     @Override
@@ -30,7 +30,7 @@ public class NewsServiceImpl implements NewsService {
 
     @Override
     public void deleteItem(Long id) {
-        newsRepository.delete(id);
+        newsRepository.deleteById(id);
     }
 
     @Override

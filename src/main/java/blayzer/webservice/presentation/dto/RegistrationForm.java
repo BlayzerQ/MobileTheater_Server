@@ -12,6 +12,7 @@ import javax.validation.constraints.Size;
 
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class RegistrationForm {
     @NotBlank(message = "Login is required!")
     @Size(min = 4, max = 16, message = "Login must be between 4 and 16 characters long!")

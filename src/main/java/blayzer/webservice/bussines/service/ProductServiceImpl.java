@@ -1,7 +1,7 @@
-package blayzer.webservice.service;
+package blayzer.webservice.bussines.service;
 
-import blayzer.webservice.entity.Product;
-import blayzer.webservice.repository.ProductRepository;
+import blayzer.webservice.dal.entity.ProductEntity;
+import blayzer.webservice.dal.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,17 +14,17 @@ public class ProductServiceImpl implements ProductService {
     private ProductRepository productRepository;
 
     @Override
-    public Product getByID(Long id) {
+    public ProductEntity getByID(Long id) {
         return productRepository.findById(id).get();
     }
 
     @Override
-    public Product addItem(Product user) {
+    public ProductEntity addItem(ProductEntity user) {
         return productRepository.saveAndFlush(user);
     }
 
     @Override
-    public Product editItem(Product user) {
+    public ProductEntity editItem(ProductEntity user) {
         return productRepository.saveAndFlush(user);
     }
 
@@ -34,7 +34,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> getAll() {
+    public List<ProductEntity> getAll() {
         return productRepository.findAll();
     }
 

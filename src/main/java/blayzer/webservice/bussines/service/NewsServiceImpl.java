@@ -1,7 +1,7 @@
-package blayzer.webservice.service;
+package blayzer.webservice.bussines.service;
 
-import blayzer.webservice.entity.News;
-import blayzer.webservice.repository.NewsRepository;
+import blayzer.webservice.dal.entity.NewsEntity;
+import blayzer.webservice.dal.repository.NewsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,17 +14,17 @@ public class NewsServiceImpl implements NewsService {
     private NewsRepository newsRepository;
 
     @Override
-    public News getByID(Long id) {
+    public NewsEntity getByID(Long id) {
         return newsRepository.findById(id).get();
     }
 
     @Override
-    public News addItem(News user) {
+    public NewsEntity addItem(NewsEntity user) {
         return newsRepository.saveAndFlush(user);
     }
 
     @Override
-    public News editItem(News user) {
+    public NewsEntity editItem(NewsEntity user) {
         return newsRepository.saveAndFlush(user);
     }
 
@@ -34,7 +34,7 @@ public class NewsServiceImpl implements NewsService {
     }
 
     @Override
-    public List<News> getAll() {
+    public List<NewsEntity> getAll() {
         return newsRepository.findAll();
     }
 

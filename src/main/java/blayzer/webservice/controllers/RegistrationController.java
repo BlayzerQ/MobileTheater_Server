@@ -1,9 +1,7 @@
 package blayzer.webservice.controllers;
 
-import blayzer.webservice.bussines.objects.User;
+import blayzer.webservice.bussines.service.UserService;
 import blayzer.webservice.presentation.dto.RegistrationForm;
-import blayzer.webservice.service.UserService;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,11 +17,9 @@ import javax.validation.Valid;
 public class RegistrationController {
 
     private final UserService userService;
-    private final PasswordEncoder passwordEncoder;
 
-    public RegistrationController(UserService userService, PasswordEncoder passwordEncoder) {
+    public RegistrationController(UserService userService) {
         this.userService = userService;
-        this.passwordEncoder = passwordEncoder;
     }
 
     @GetMapping("/registration")
@@ -37,18 +33,12 @@ public class RegistrationController {
         if (errors.hasErrors()) {
             return "registration";
         }
-        String login = registrationForm.getLogin();
-        String password = registrationForm.getPassword();
-        User user = new User();
-        user.setLogin(login);
-        user.setEmail(registrationForm.getEmail());
-        user.setPassword(passwordEncoder.encode(password));
-        userService.persist(user);
         try {
-            request.login(login, password);
+            userService.registerAndLogin(registrationForm, request);
         } catch (ServletException e) {
             e.printStackTrace();
+            return "registration";
         }
-        return "redirect:/index";
+        return "index";
     }
 }

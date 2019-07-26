@@ -1,6 +1,6 @@
 package blayzer.webservice.validation;
 
-import blayzer.webservice.service.UserService;
+import blayzer.webservice.bussines.service.UserService;
 import blayzer.webservice.validation.annotations.UniqueEmail;
 
 import javax.annotation.Nullable;
@@ -17,6 +17,6 @@ public class UniqueEmailValidator implements ConstraintValidator<UniqueEmail, St
 
     @Override
     public boolean isValid(@Nullable String email, ConstraintValidatorContext constraintValidatorContext) {
-        return !userService.getByEmail(email).isPresent();
+        return !userService.isEmailRegistered(email);
     }
 }

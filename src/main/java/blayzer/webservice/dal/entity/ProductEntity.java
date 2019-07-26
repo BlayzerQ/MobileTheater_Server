@@ -1,6 +1,5 @@
-package blayzer.webservice.dal.dao.entity;
+package blayzer.webservice.dal.entity;
 
-import blayzer.webservice.entity.enums.ProductTypeEnum;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -18,7 +17,7 @@ public class ProductEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private ProductTypeEnum type;
+    private Type type;
     private String name;
     private String description;
     private String productVersion;
@@ -26,4 +25,10 @@ public class ProductEntity {
     private String changelog;
     private String developer;
     private int price;
+
+    enum Type {
+        WEB,
+        MOD,
+        PLUGIN
+    }
 }

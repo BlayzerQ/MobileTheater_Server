@@ -1,4 +1,4 @@
-package blayzer.webservice.entity;
+package blayzer.webservice.dal.entity;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,7 +13,7 @@ import javax.persistence.Table;
 @Table(name = "tasks")
 @Data
 @NoArgsConstructor
-public class Task {
+public class TaskEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

@@ -1,6 +1,5 @@
-package blayzer.webservice.dal.dao.entity;
+package blayzer.webservice.dal.entity;
 
-import blayzer.webservice.bussines.objects.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -33,12 +32,19 @@ public class UserEntity implements UserDetails {
     @Column(unique = true)
     private String email;
     private String password;
-    private User.Role role;
+    private Role role;
     private int money;
+
+    public enum Role {
+        ADMIN,
+        DEVELOPER,
+        USER,
+        ANONYMOUS
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singletonList(new SimpleGrantedAuthority(User.Role.USER.name()));
+        return Collections.singletonList(new SimpleGrantedAuthority(Role.USER.name()));
     }
 
     @Override

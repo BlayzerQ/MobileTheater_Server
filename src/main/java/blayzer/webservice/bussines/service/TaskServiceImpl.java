@@ -1,7 +1,7 @@
-package blayzer.webservice.service;
+package blayzer.webservice.bussines.service;
 
-import blayzer.webservice.entity.Task;
-import blayzer.webservice.repository.TaskRepository;
+import blayzer.webservice.dal.entity.TaskEntity;
+import blayzer.webservice.dal.repository.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,17 +14,17 @@ public class TaskServiceImpl implements TaskService {
     private TaskRepository taskRepository;
 
     @Override
-    public Task getByID(Long id) {
+    public TaskEntity getByID(Long id) {
         return taskRepository.findById(id).get();
     }
 
     @Override
-    public Task addTask(Task user) {
+    public TaskEntity addTask(TaskEntity user) {
         return taskRepository.saveAndFlush(user);
     }
 
     @Override
-    public Task editTask(Task user) {
+    public TaskEntity editTask(TaskEntity user) {
         return taskRepository.saveAndFlush(user);
     }
 
@@ -34,7 +34,7 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public List<Task> getAll() {
+    public List<TaskEntity> getAll() {
         return taskRepository.findAll();
     }
 

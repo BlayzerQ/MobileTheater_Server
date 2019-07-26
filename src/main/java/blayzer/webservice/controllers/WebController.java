@@ -1,10 +1,10 @@
 package blayzer.webservice.controllers;
 
-import blayzer.webservice.service.NewsService;
-import blayzer.webservice.service.ProductService;
-import blayzer.webservice.service.TaskService;
-import blayzer.webservice.service.UserService;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import blayzer.webservice.dal.entity.UserEntity;
+import blayzer.webservice.bussines.service.NewsService;
+import blayzer.webservice.bussines.service.ProductService;
+import blayzer.webservice.bussines.service.TaskService;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,23 +13,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
-import java.security.Principal;
 
 @Controller
 public class WebController {
 
-    private final UserService userService;
     private final NewsService newsService;
     private final ProductService productService;
     private final TaskService taskService;
-    private final PasswordEncoder passwordEncoder;
 
-    public WebController(UserService userService, NewsService newsService, ProductService productService, TaskService taskService, PasswordEncoder passwordEncoder) {
-        this.userService = userService;
+    public WebController(NewsService newsService, ProductService productService, TaskService taskService) {
         this.newsService = newsService;
         this.productService = productService;
         this.taskService = taskService;
-        this.passwordEncoder = passwordEncoder;
     }
 
     @GetMapping({"/", "/index"})
@@ -39,8 +34,8 @@ public class WebController {
     }
 
     @GetMapping("/account")
-    public String account(Model model, HttpServletRequest request, Principal principal) {
-        model.addAttribute("user", userService.getByName(principal.getName()).get());
+    public String account(Model model, HttpServletRequest request, @AuthenticationPrincipal UserEntity user) {
+        model.addAttribute("user", user);
         return "account";
     }
 

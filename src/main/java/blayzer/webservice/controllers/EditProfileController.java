@@ -1,10 +1,10 @@
 package blayzer.webservice.controllers;
 
-import blayzer.webservice.dal.dao.entity.UserEntity;
+import blayzer.webservice.bussines.service.UserService;
+import blayzer.webservice.dal.entity.UserEntity;
 import blayzer.webservice.presentation.dto.EditProfileForm;
-import blayzer.webservice.service.UserService;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
-import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -28,19 +28,15 @@ public class EditProfileController {
     @GetMapping("/account/edit")
     public String accountedit(Model model) {
         model.addAttribute("user", new EditProfileForm());
-        return "/accountedit";
+        return "accountedit";
     }
 
     @PostMapping("/account/edit")
-    public String accountedit(@Valid @ModelAttribute("user") EditProfileForm editProfileForm, Errors errors, Authentication authentication) {
+    public String accountedit(@Valid @ModelAttribute("user") EditProfileForm editProfileForm, Errors errors, @AuthenticationPrincipal UserEntity user) {
         if (errors.hasErrors()) {
             return "accountedit";
         }
-        UserEntity user = (UserEntity) authentication.getPrincipal();
-        user.alterLogin(editProfileForm.getLogin());
-        user.alterEmail(editProfileForm.getEmail());
-        user.alterPassword(editProfileForm.getPassword());
-        userService.persist(user);
+        userService.updateWithFormAndPersist(editProfileForm, user);
         return "redirect:/account";
     }
 

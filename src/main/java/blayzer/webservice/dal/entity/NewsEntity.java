@@ -1,4 +1,4 @@
-package blayzer.webservice.dal.dao.entity;
+package blayzer.webservice.dal.entity;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

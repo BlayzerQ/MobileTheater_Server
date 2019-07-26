@@ -16,7 +16,7 @@
             <li class="nav-item">
                 <a href="/tasks" class="nav-link" target="_self">Фриланс</a>
             </li>
-			<li class="nav-item">
+            <li class="nav-item">
                 <a href="/about" class="nav-link" target="_self">О сайте</a>
             </li>
             <li class="nav-item">
@@ -30,14 +30,16 @@
 
     <div class="btn-group nt-correction">
         <sec:authorize access="!isAuthenticated()">
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Авторизация</button>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Авторизация
+            </button>
             <br>
         </sec:authorize>
         <sec:authorize access="isAuthenticated()">
             <a class="btn btn-outline-primary" href="/account" title="Личный кабинет">
                 <i class="fa fa-user-circle" aria-hidden="true"></i>
-                <sec:authentication property="principal.username" /> </a>
-            <button type="button" class="btn btn-outline-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <sec:authentication property="principal.username"/> </a>
+            <button type="button" class="btn btn-outline-primary dropdown-toggle dropdown-toggle-split"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <span class="sr-only">Toggle Dropdown</span>
             </button>
             <div class="dropdown-menu dropdown-menu-right">
@@ -50,11 +52,11 @@
         </sec:authorize>
     </div>
 </nav>
-    <script>
+<script>
     var page = window.location.pathname;
-    if(page != '/account') {
-        var link = document.querySelector( '[ href="'+ page +'" ]' );
+    if (page != '/account') {
+        var link = document.querySelector('[ href="' + page + '" ]');
         link.style.color = '#dc3545';
         link.style.borderBottom = '2px solid #dc3545';
     }
-    </script>
+</script>

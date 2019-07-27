@@ -14,16 +14,35 @@
             </div>
             <br>
             <div class="container" style="width: 300px;">
-                <c:url value="/j_spring_security_check" var="loginUrl"/>
-                <form action="${loginUrl}" method="post">
-                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                    <input type="text" class="form-control md-form mb-2" name="j_username" placeholder="Логин" required
-                           autofocus value="test">
-                    <input type="password" class="form-control md-form mb-4" name="j_password" placeholder="Пароль"
-                           required value="1234">
-                    <button class="btn btn-primary btn-block" type="submit">Войти</button>
-                    <br>
-                </form>
+                <input type="text" class="form-control md-form mb-2" id="j_username" name="j_username"
+                       placeholder="Логин" required
+                       autofocus value="test">
+                <input type="password" class="form-control md-form mb-4" id="j_password" name="j_password"
+                       placeholder="Пароль"
+                       required value="1234">
+                <p id="loginErrorMessage"></p>
+                <button class="btn btn-primary btn-block" type="button" onclick="handleLoginProcess()">Войти</button>
+                <script>
+                    function handleLoginProcess() {
+                        let xhttp = new XMLHttpRequest();
+                        xhttp.onreadystatechange = function () {
+                            if (this.readyState === 4) {
+                                if (this.status === 403) {
+                                    document.getElementById("loginErrorMessage").textContent = this.responseText;
+                                    document.getElementById("loginErrorMessage").style.color = "red";
+                                } else if (this.status === 200) {
+                                    window.location.reload()
+                                }
+                            }
+                        };
+                        let username = document.getElementById("j_username").value;
+                        let password = document.getElementById("j_password").value;
+                        xhttp.open("POST", "j_spring_security_check", true);
+                        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                        xhttp.send("_csrf=${_csrf.token}&j_username=" + username + "&j_password=" + password);
+                    }
+                </script>
+                <br>
             </div>
             <div class="modal-footer flex-column justify-content-center">
                 <a href="/resetpassword" class="btn btn-block btn-link">Я забыл пароль</a>

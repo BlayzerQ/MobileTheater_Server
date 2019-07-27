@@ -47,8 +47,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginPage("/index")
                 // указываем action с формы логина
                 .loginProcessingUrl("/j_spring_security_check")
-                // указываем URL при неудачном логине
-                .failureUrl("/index?error")
+                .failureHandler((request, response, authentication) -> {
+                    response.getWriter().append("Incorrect login or password!");
+                    response.setStatus(403);
+                })
                 // Указываем параметры логина и пароля с формы логина
                 .usernameParameter("j_username")
                 .passwordParameter("j_password")

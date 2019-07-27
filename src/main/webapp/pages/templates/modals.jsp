@@ -14,10 +14,10 @@
             </div>
             <br>
             <div class="container" style="width: 300px;">
-                <input type="text" class="form-control md-form mb-2" id="j_username" name="j_username"
+                <input type="text" class="form-control md-form mb-2" id="username"
                        placeholder="Логин" required
                        autofocus value="test">
-                <input type="password" class="form-control md-form mb-4" id="j_password" name="j_password"
+                <input type="password" class="form-control md-form mb-4" id="password"
                        placeholder="Пароль"
                        required value="1234">
                 <p id="loginErrorMessage"></p>
@@ -35,11 +35,11 @@
                                 }
                             }
                         };
-                        let username = document.getElementById("j_username").value;
-                        let password = document.getElementById("j_password").value;
-                        xhttp.open("POST", "j_spring_security_check", true);
+                        let username = document.getElementById("username").value;
+                        let password = document.getElementById("password").value;
+                        xhttp.open("POST", "processLogin", true);
                         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-                        xhttp.send("_csrf=${_csrf.token}&j_username=" + username + "&j_password=" + password);
+                        xhttp.send("_csrf=${_csrf.token}&username=" + username + "&password=" + password);
                     }
                 </script>
                 <br>

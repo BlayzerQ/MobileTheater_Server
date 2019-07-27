@@ -24,8 +24,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         this.passwordEncoder = passwordEncoder;
     }
 
-    // регистрируем нашу реализацию UserDetailsService
-    // а также PasswordEncoder для приведения пароля в формат SHA1
     @Autowired
     public void registerGlobalAuthentication(AuthenticationManagerBuilder auth) throws Exception {
         auth
@@ -35,31 +33,26 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        // указываем правила запросов
-        // по которым будет определятся доступ к ресурсам и остальным данным
         http
                 .authorizeRequests()
-                .antMatchers("/resources/**", "/**").permitAll()
-                .anyRequest().permitAll()
-                .and()
+                .antMatchers(
+                        "/",
+                        "/pages/**",
+                        "/catalog/**",
+                        "/news/**",
+                        "/tasks/**"
+                ).permitAll()
+                .anyRequest().authenticated();
+        http
                 .formLogin()
-                // указываем страницу с формой логина
                 .loginPage("/")
-                // указываем action с формы логина
-                .loginProcessingUrl("/j_spring_security_check")
+                .loginProcessingUrl("/processLogin")
                 .failureHandler((request, response, authentication) -> {
                     response.getWriter().append("Incorrect login or password!");
                     response.setStatus(403);
-                })
-                // Указываем параметры логина и пароля с формы логина
-                .usernameParameter("j_username")
-                .passwordParameter("j_password")
-                // даем доступ к форме логина всем
-                .permitAll()
-                .and()
+                });
+        http
                 .logout()
                 .logoutSuccessUrl("/");
-
     }
-
 }

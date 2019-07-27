@@ -44,7 +44,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .formLogin()
                 // указываем страницу с формой логина
-                .loginPage("/index")
+                .loginPage("/")
                 // указываем action с формы логина
                 .loginProcessingUrl("/j_spring_security_check")
                 .failureHandler((request, response, authentication) -> {
@@ -58,7 +58,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .and()
                 .logout()
-                .logoutSuccessUrl("/index?logout");
+                .logoutSuccessUrl("/");
 
     }
 

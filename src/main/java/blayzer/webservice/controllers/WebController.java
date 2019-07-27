@@ -27,7 +27,7 @@ public class WebController {
         this.taskService = taskService;
     }
 
-    @GetMapping({"/", "/index"})
+    @GetMapping("/")
     public String index(Model model) {
         model.addAttribute("message", "RESTful API is working.");
         return "index";

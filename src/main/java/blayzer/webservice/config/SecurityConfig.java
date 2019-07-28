@@ -43,7 +43,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/tasks/**",
                         "/about",
                         "/registration",
-                        "/resetpassword"
+                        "/resetpassword",
+                        "/webjars/**"
                 ).permitAll()
                 .anyRequest().authenticated();
         http

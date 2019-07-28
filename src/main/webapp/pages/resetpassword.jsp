@@ -16,13 +16,12 @@
     <title>Site.com</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="<c:url value=" /pages/css/bootstrap.css " />" rel="stylesheet">
-    <link href="<c:url value=" /pages/css/bootstrap.min.css " />" rel="stylesheet">
-    <link href="<c:url value=" /pages/css/styles.css " />" rel="stylesheet">
+    <link href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="/pages/css/styles.css" rel="stylesheet"/>
 
     <!-- Bootstrap core JS -->
-    <script src="/pages/js/jquery.min.js"></script>
-    <script src="/pages/js/bootstrap.min.js"></script>
+    <script src="/webjars/jquery/3.4.1/jquery.min.js"></script>
+    <script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
     <!-- Templates loading JS -->
     <script>

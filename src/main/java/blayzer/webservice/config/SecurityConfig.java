@@ -40,7 +40,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/pages/**",
                         "/catalog/**",
                         "/news/**",
-                        "/tasks/**"
+                        "/tasks/**",
+                        "/about",
+                        "/registration",
+                        "/resetpassword"
                 ).permitAll()
                 .anyRequest().authenticated();
         http

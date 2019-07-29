@@ -64,7 +64,8 @@
                         </div>
                         <div class="form-group">
                             <form:label path="password">Пароль</form:label>
-                            <form:input path="password" class="form-control" placeholder="Введите Пароль"
+                            <form:input path="password" type="password" class="form-control"
+                                        placeholder="Введите Пароль"
                                         required="required"/>
                             <small><form:errors path="password" class="errors"/></small>
                         </div>

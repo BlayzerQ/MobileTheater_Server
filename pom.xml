@@ -9,8 +9,8 @@
         <version>2.1.6.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>webserv</groupId>
-    <artifactId>webserv</artifactId>
+    <groupId>com.forgegrid</groupId>
+    <artifactId>forgegrid</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>

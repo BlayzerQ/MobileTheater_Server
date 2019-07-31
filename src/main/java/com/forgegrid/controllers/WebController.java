@@ -4,6 +4,7 @@ import com.forgegrid.dal.entity.UserEntity;
 import com.forgegrid.bussines.service.NewsService;
 import com.forgegrid.bussines.service.ProductService;
 import com.forgegrid.bussines.service.TaskService;
+import com.forgegrid.presentation.dto.AccountInfoForm;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -35,7 +36,13 @@ public class WebController {
 
     @GetMapping("/account")
     public String account(Model model, HttpServletRequest request, @AuthenticationPrincipal UserEntity user) {
-        model.addAttribute("user", user);
+        AccountInfoForm accountInfoForm = new AccountInfoForm(
+                user.getLogin(),
+                user.getEmail(),
+                user.getRole(),
+                user.getMoney()
+        );
+        model.addAttribute("user", accountInfoForm);
         return "account";
     }
 

@@ -1,5 +1,6 @@
 package com.forgegrid.config;
 
+import com.forgegrid.authentication.CachedRememberMeServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Configuration;
@@ -11,6 +12,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
+
+import java.util.UUID;
 
 @Configuration
 @EnableWebSecurity
@@ -61,8 +64,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .logout()
                 .logoutSuccessUrl("/");
+        String tokenKey = UUID.randomUUID().toString();
         http
                 .rememberMe()
-                .tokenRepository(persistentTokenRepository);
+                .key(tokenKey)
+                .tokenRepository(persistentTokenRepository)
+                .rememberMeServices(new CachedRememberMeServices(
+                        tokenKey,
+                        userDetailsService,
+                        persistentTokenRepository
+                ));
     }
 }

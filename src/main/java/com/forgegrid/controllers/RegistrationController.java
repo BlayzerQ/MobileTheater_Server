@@ -1,7 +1,9 @@
 package com.forgegrid.controllers;
 
 import com.forgegrid.bussines.service.UserService;
+import com.forgegrid.dal.entity.UserEntity;
 import com.forgegrid.presentation.dto.RegistrationForm;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,7 +25,10 @@ public class RegistrationController {
     }
 
     @GetMapping("/registration")
-    public ModelAndView registration(ModelAndView model) {
+    public ModelAndView registration(ModelAndView model, @AuthenticationPrincipal UserEntity user) {
+        if (user != null) {
+            return new ModelAndView("redirect:/");
+        }
         model.addObject("user", new RegistrationForm());
         return model;
     }

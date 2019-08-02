@@ -20,6 +20,8 @@
                 <input type="password" class="form-control md-form mb-4" id="password"
                        placeholder="Пароль"
                        required value="1234">
+                <td><input type="checkbox" id="remember-me"></td>
+                <td>Remember me</td>
                 <p id="loginErrorMessage"></p>
                 <button class="btn btn-primary btn-block" type="button" onclick="handleLoginProcess()">Войти</button>
                 <script>
@@ -37,9 +39,14 @@
                         };
                         let username = document.getElementById("username").value;
                         let password = document.getElementById("password").value;
+                        let rememberMeCheckbox = document.getElementById("remember-me");
                         xhttp.open("POST", "processLogin", true);
                         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-                        xhttp.send("_csrf=${_csrf.token}&username=" + username + "&password=" + password);
+                        let requestData = "_csrf=${_csrf.token}&username=" + username + "&password=" + password;
+                        if (rememberMeCheckbox.checked) {
+                            requestData += "&remember-me=" + rememberMeCheckbox.value;
+                        }
+                        xhttp.send(requestData);
                     }
                 </script>
                 <br>

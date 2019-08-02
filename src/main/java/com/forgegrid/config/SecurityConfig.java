@@ -1,5 +1,6 @@
 package com.forgegrid.config;
 
+import com.forgegrid.authentication.CachedRememberMeServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Configuration;
@@ -10,6 +11,9 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
+
+import java.util.UUID;
 
 @Configuration
 @EnableWebSecurity
@@ -18,10 +22,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final UserDetailsService userDetailsService;
     private final PasswordEncoder passwordEncoder;
+    private final PersistentTokenRepository persistentTokenRepository;
 
-    public SecurityConfig(@Qualifier("userDetailsJpaService") UserDetailsService userDetailsService, PasswordEncoder passwordEncoder) {
+    public SecurityConfig(@Qualifier("userDetailsJpaService") UserDetailsService userDetailsService, PasswordEncoder passwordEncoder, PersistentTokenRepository persistentTokenRepository) {
         this.userDetailsService = userDetailsService;
         this.passwordEncoder = passwordEncoder;
+        this.persistentTokenRepository = persistentTokenRepository;
     }
 
     @Autowired
@@ -58,5 +64,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .logout()
                 .logoutSuccessUrl("/");
+        String tokenKey = UUID.randomUUID().toString();
+        http
+                .rememberMe()
+                .key(tokenKey)
+                .tokenRepository(persistentTokenRepository)
+                .rememberMeServices(new CachedRememberMeServices(
+                        tokenKey,
+                        userDetailsService,
+                        persistentTokenRepository
+                ));
     }
 }

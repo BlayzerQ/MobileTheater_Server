@@ -16,12 +16,12 @@
     <title>Site.com</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="/webjars/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
     <link href="/pages/css/styles.css" rel="stylesheet"/>
 
     <!-- Bootstrap core JS -->
-    <script src="/webjars/jquery/3.4.1/jquery.min.js"></script>
-    <script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="/webjars/jquery/jquery.min.js"></script>
+    <script src="/webjars/bootstrap/js/bootstrap.min.js"></script>
 
     <!-- Templates loading JS -->
     <script>

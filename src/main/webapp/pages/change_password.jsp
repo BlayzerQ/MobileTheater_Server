@@ -43,27 +43,42 @@
 
         <!-- Current page main code -->
         <div class="content">
-            <h1 class="px-3 pb-4 text-center">Восстановление пароля</h1>
+            <h1 class="px-3 pb-4 text-center">Создание нового пароля</h1>
 
             <div class="d-flex justify-content-center">
                 <div class="col-4 border rounded px-3 pt-3">
-                    <form:form method="POST" action="${pageContext.request.contextPath}/resetpassword"
-                               modelAttribute="requestPasswordResetForm">
+                    <form:form method="POST" action="${pageContext.request.contextPath}/change-password"
+                               modelAttribute="resetPasswordForm">
+                        <input type="hidden" name="token" value="${token}"/>
                         <div class="form-group">
-                            <form:label path="email">E-mail</form:label>
-                            <form:input path="email" class="form-control" placeholder="Введите Ваш E-mail"
+                            <form:label path="newPassword">Пароль</form:label>
+                            <form:input path="newPassword" type="password" class="form-control"
+                                        placeholder="Введите новый пароль"
                                         required="required"/>
-                            <small><form:errors path="email" class="errors"/></small>
+                            <small><form:errors path="newPassword" class="errors"/></small>
+                        </div>
+                        <div class="form-group">
+                            <label for="confirm" class="control-label">Повтор пароля</label>
+                            <input type="password" id="confirm" class="form-control"
+                                   placeholder="Введите Пароль еще раз"
+                                   required="required" oninput="check(this)">
+                            <script>
+                                function check(input) {
+                                    if (input.value !== document.getElementById('newPassword').value) {
+                                        input.setCustomValidity('Пароли не совпадают!');
+                                    } else {
+                                        input.setCustomValidity('');
+                                    }
+                                }
+                            </script>
                         </div>
                         <div class="form-group">
                             <div class="submit-button">
-                                <input type="submit" name="submit" value="Восстановить пароль"
+                                <input type="submit" name="submit" value="Изменить пароль"
                                        class="btn btn-block btn-success">
                             </div>
                         </div>
                     </form:form>
-                    <div class="separator"></div>
-                    <p>На ваш e-mail придёт письмо с новым паролем</p>
                 </div>
             </div>
         </div>

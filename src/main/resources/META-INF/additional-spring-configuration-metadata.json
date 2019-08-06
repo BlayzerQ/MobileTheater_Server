@@ -1,0 +1,14 @@
+{
+  "properties": [
+    {
+      "name": "resetpassword.domain",
+      "type": "java.lang.String",
+      "description": "Domain name that will be used in reset password link."
+    },
+    {
+      "name": "resetpassword.port",
+      "type": "java.lang.Integer",
+      "description": "Port that will be used in reset password link."
+    }
+  ]
+}

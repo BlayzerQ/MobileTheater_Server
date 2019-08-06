@@ -4,6 +4,7 @@ import com.forgegrid.bussines.service.ResetPasswordService;
 import com.forgegrid.bussines.service.UserService;
 import com.forgegrid.presentation.dto.RequestPasswordResetForm;
 import com.forgegrid.presentation.dto.ResetPasswordForm;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.MailException;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
@@ -14,14 +15,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
-import java.net.UnknownHostException;
 import java.util.Calendar;
 import java.util.UUID;
 
 @Controller
 public class ResetPasswordController {
 
-    private static final String resetPasswordLinkPattern = "http://<host>:<port>/<endpoint>?token=<token>";
+    @Value("${resetpassword.domain}")
+    private String resetPasswordDomain = "localhost";
+    @Value("${resetpassword.port}")
+    private int resetPasswordPort = 8080;
+    private static final String resetPasswordLinkPattern = "http://<domain>:<port>/<endpoint>?token=<token>";
     private final UserService userService;
     private final ResetPasswordService resetPasswordService;
 
@@ -49,14 +53,7 @@ public class ResetPasswordController {
         calendar.add(Calendar.DAY_OF_YEAR, 1);
         String token = UUID.randomUUID().toString();
         resetPasswordService.saveToken(token, email, calendar.getTime());
-        String resetPasswordLink;
-        try {
-            resetPasswordLink = prepareResetLink(token);
-        } catch (UnknownHostException e) {
-            // TODO: Consider better error handling here
-            e.printStackTrace();
-            return "resetpassword";
-        }
+        String resetPasswordLink = prepareResetLink(token);
         try {
             resetPasswordService.sendResetPasswordMessage(
                     email,
@@ -71,10 +68,10 @@ public class ResetPasswordController {
         return "check_email";
     }
 
-    private String prepareResetLink(String token) throws UnknownHostException {
+    private String prepareResetLink(String token) {
         return resetPasswordLinkPattern
-                .replace("<host>", "localhost")
-                .replace("<port>", String.valueOf(8080))
+                .replace("<domain>", resetPasswordDomain)
+                .replace("<port>", String.valueOf(resetPasswordPort))
                 .replace("<endpoint>", "change-password")
                 .replace("<token>", token);
     }

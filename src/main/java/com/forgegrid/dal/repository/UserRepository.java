@@ -10,4 +10,6 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
     UserEntity getUserEntityByLogin(String login);
 
     boolean existsUserEntityByEmail(String email);
+
+    UserEntity getByEmail(String email);
 }

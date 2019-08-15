@@ -1,10 +1,13 @@
 package com.forgegrid.controllers;
 
+import com.forgegrid.dal.entity.NewsEntity;
 import com.forgegrid.dal.entity.UserEntity;
 import com.forgegrid.bussines.service.NewsService;
 import com.forgegrid.bussines.service.ProductService;
 import com.forgegrid.bussines.service.TaskService;
 import com.forgegrid.presentation.dto.AccountInfoForm;
+import com.forgegrid.presentation.dto.NewsArticle;
+import org.hibernate.annotations.Parameter;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +17,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Controller
 public class WebController {
@@ -48,8 +54,18 @@ public class WebController {
 
     @GetMapping("/news")
     public String news(Model model) {
-        model.addAttribute("news", newsService.getAll());
+        model.addAttribute("news", newsService.getAll().stream().map(NewsArticle::new).collect(Collectors.toList()));
         return "news";
+    }
+
+    @GetMapping("/news/{id}")
+    public String news(Model model, @PathVariable long id) {
+        Optional<NewsEntity> newsEntity = newsService.getByID(id);
+        if (!newsEntity.isPresent()) {
+            return "redirect:/news";
+        }
+        model.addAttribute("article", new NewsArticle(newsEntity.get()));
+        return "news_article";
     }
 
     @GetMapping("/tasks")

@@ -39,17 +39,10 @@
 <div id="navmenuContent"></div>
 
 <div class="container nav-correction">
-    <h1 class="px-3 pb-3 text-center tx-correction">Новости</h1>
+    <h1 class="px-3 pb-3 text-center tx-correction">${article.title}</h1>
     <hr>
 
-    <!-- Current page main code -->
-    <c:forEach var="item" items='${news}'>
-        <div class="jumbotron jumbotron-correction news-article">
-            <h1>${item.title}</h1>
-            <p>${item.content.substring(0, 256)}${"..."}</p>
-            <a class="btn btn-info" href="/news/${item.id}">See full</a>
-        </div>
-    </c:forEach>
+    ${article.content}
 
     <!-- Modals -->
     <div id="modalsContent"></div>

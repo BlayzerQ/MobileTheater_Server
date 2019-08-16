@@ -1,13 +1,15 @@
 package com.forgegrid.controllers;
 
-import com.forgegrid.dal.entity.NewsEntity;
-import com.forgegrid.dal.entity.UserEntity;
+import com.forgegrid.bussines.service.ImagesService;
 import com.forgegrid.bussines.service.NewsService;
 import com.forgegrid.bussines.service.ProductService;
 import com.forgegrid.bussines.service.TaskService;
+import com.forgegrid.dal.entity.Image;
+import com.forgegrid.dal.entity.NewsEntity;
+import com.forgegrid.dal.entity.UserEntity;
 import com.forgegrid.presentation.dto.AccountInfoForm;
 import com.forgegrid.presentation.dto.NewsArticle;
-import org.hibernate.annotations.Parameter;
+import org.apache.commons.io.IOUtils;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,7 +19,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -27,11 +30,13 @@ public class WebController {
     private final NewsService newsService;
     private final ProductService productService;
     private final TaskService taskService;
+    private final ImagesService imagesService;
 
-    public WebController(NewsService newsService, ProductService productService, TaskService taskService) {
+    public WebController(NewsService newsService, ProductService productService, TaskService taskService, ImagesService imagesService) {
         this.newsService = newsService;
         this.productService = productService;
         this.taskService = taskService;
+        this.imagesService = imagesService;
     }
 
     @GetMapping("/")
@@ -66,6 +71,18 @@ public class WebController {
         }
         model.addAttribute("article", new NewsArticle(newsEntity.get()));
         return "news_article";
+    }
+
+    @GetMapping("/news/images/{id}")
+    public void getImage(@PathVariable Long id, HttpServletResponse response) {
+        imagesService.findImageById(id).ifPresent(image -> {
+            try {
+                response.setContentType("image/jpeg");
+                IOUtils.write(image.getImage(), response.getOutputStream());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
     }
 
     @GetMapping("/tasks")

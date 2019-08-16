@@ -41,6 +41,7 @@
 <div class="container nav-correction">
     <h1 class="px-3 pb-3 text-center tx-correction">${article.title}</h1>
     <hr>
+    <img src="/news/images/${article.id}" class="image-center" alt="No image available!"/>
 
     ${article.content}
 

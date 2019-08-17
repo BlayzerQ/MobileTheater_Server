@@ -7,7 +7,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
+import java.util.Date;
 
 @Entity
 @Table(name = "products")
@@ -25,6 +27,12 @@ public class ProductEntity {
     private String changelog;
     private String developer;
     private int price;
+    private Date lastUpdate = new Date();
+
+    @PreUpdate
+    protected void onUpdate() {
+        lastUpdate = new Date();
+    }
 
     enum Type {
         WEB,

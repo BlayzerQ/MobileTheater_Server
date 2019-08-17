@@ -116,7 +116,7 @@
                     </div>
                     <div class="card-footer">
                         <small class="text-muted">Тип продукта: ${item.type}</small><br>
-                        <small class="text-muted">Последнее обновление: null</small>
+                        <small class="text-muted">Последнее обновление: ${item.lastUpdate}</small>
                     </div>
                 </div>
             </c:forEach>

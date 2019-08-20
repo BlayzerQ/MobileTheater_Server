@@ -10,10 +10,12 @@ public class NewsArticle {
     private final long id;
     private final String title;
     private final String content;
+    private final String date;
 
     public NewsArticle(NewsEntity newsEntity) {
         this.id = newsEntity.getId();
         this.title = newsEntity.getTitle();
         this.content = newsEntity.getContent();
+        this.date = newsEntity.getDate().toString();
     }
 }

@@ -4,6 +4,7 @@ import com.forgegrid.bussines.service.ResetPasswordService;
 import com.forgegrid.bussines.service.UserService;
 import com.forgegrid.presentation.dto.RequestPasswordResetForm;
 import com.forgegrid.presentation.dto.ResetPasswordForm;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.MailException;
 import org.springframework.stereotype.Controller;
@@ -19,6 +20,7 @@ import java.util.Calendar;
 import java.util.UUID;
 
 @Controller
+@RequiredArgsConstructor
 public class ResetPasswordController {
 
     @Value("${resetpassword.domain}")
@@ -28,11 +30,6 @@ public class ResetPasswordController {
     private static final String resetPasswordLinkPattern = "http://<domain>:<port>/<endpoint>?token=<token>";
     private final UserService userService;
     private final ResetPasswordService resetPasswordService;
-
-    public ResetPasswordController(UserService userService, ResetPasswordService resetPasswordService) {
-        this.userService = userService;
-        this.resetPasswordService = resetPasswordService;
-    }
 
     @GetMapping("/resetpassword")
     public ModelAndView resetPassword(ModelAndView model) {

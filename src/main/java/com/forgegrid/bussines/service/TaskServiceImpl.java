@@ -2,16 +2,16 @@ package com.forgegrid.bussines.service;
 
 import com.forgegrid.dal.entity.TaskEntity;
 import com.forgegrid.dal.repository.TaskRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class TaskServiceImpl implements TaskService {
 
-    @Autowired
-    private TaskRepository taskRepository;
+    private final TaskRepository taskRepository;
 
     @Override
     public TaskEntity getByID(Long id) {

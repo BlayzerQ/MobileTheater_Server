@@ -2,17 +2,17 @@ package com.forgegrid.bussines.service;
 
 import com.forgegrid.dal.entity.NewsEntity;
 import com.forgegrid.dal.repository.NewsRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class NewsServiceImpl implements NewsService {
 
-    @Autowired
-    private NewsRepository newsRepository;
+    private final NewsRepository newsRepository;
 
     @Override
     public Optional<NewsEntity> getByID(Long id) {

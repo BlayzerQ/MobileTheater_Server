@@ -2,6 +2,7 @@ package com.forgegrid.controllers.rest;
 
 import com.forgegrid.bussines.service.NewsService;
 import com.forgegrid.presentation.dto.NewsArticle;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,13 +17,10 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/rest/news")
 @CrossOrigin("http://localhost:3000")
+@RequiredArgsConstructor
 public class NewsController {
 
     private final NewsService newsService;
-
-    public NewsController(NewsService newsService) {
-        this.newsService = newsService;
-    }
 
     @GetMapping
     public List<NewsArticle> getAllNewsArticles() {

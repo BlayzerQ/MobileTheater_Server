@@ -9,6 +9,7 @@ import com.forgegrid.dal.entity.NewsEntity;
 import com.forgegrid.dal.entity.UserEntity;
 import com.forgegrid.presentation.dto.AccountInfoForm;
 import com.forgegrid.presentation.dto.NewsArticle;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.io.IOUtils;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -25,19 +26,13 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Controller
+@RequiredArgsConstructor
 public class WebController {
 
     private final NewsService newsService;
     private final ProductService productService;
     private final TaskService taskService;
     private final ImagesService imagesService;
-
-    public WebController(NewsService newsService, ProductService productService, TaskService taskService, ImagesService imagesService) {
-        this.newsService = newsService;
-        this.productService = productService;
-        this.taskService = taskService;
-        this.imagesService = imagesService;
-    }
 
     @GetMapping("/")
     public String index(Model model) {

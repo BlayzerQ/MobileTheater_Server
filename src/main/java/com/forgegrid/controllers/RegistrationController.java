@@ -3,6 +3,7 @@ package com.forgegrid.controllers;
 import com.forgegrid.bussines.service.UserService;
 import com.forgegrid.dal.entity.UserEntity;
 import com.forgegrid.presentation.dto.RegistrationForm;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
@@ -16,13 +17,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 @Controller
+@RequiredArgsConstructor
 public class RegistrationController {
 
     private final UserService userService;
-
-    public RegistrationController(UserService userService) {
-        this.userService = userService;
-    }
 
     @GetMapping("/registration")
     public ModelAndView registration(ModelAndView model, @AuthenticationPrincipal UserEntity user) {

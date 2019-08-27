@@ -1,8 +1,8 @@
 package com.forgegrid.config;
 
 import com.forgegrid.authentication.CachedRememberMeServices;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -18,17 +18,12 @@ import java.util.UUID;
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(securedEnabled = true)
+@RequiredArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final UserDetailsService userDetailsService;
     private final PasswordEncoder passwordEncoder;
     private final PersistentTokenRepository persistentTokenRepository;
-
-    public SecurityConfig(@Qualifier("userDetailsJpaService") UserDetailsService userDetailsService, PasswordEncoder passwordEncoder, PersistentTokenRepository persistentTokenRepository) {
-        this.userDetailsService = userDetailsService;
-        this.passwordEncoder = passwordEncoder;
-        this.persistentTokenRepository = persistentTokenRepository;
-    }
 
     @Autowired
     public void registerGlobalAuthentication(AuthenticationManagerBuilder auth) throws Exception {

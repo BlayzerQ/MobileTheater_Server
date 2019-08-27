@@ -4,6 +4,7 @@ import com.forgegrid.dal.entity.UserEntity;
 import com.forgegrid.presentation.dto.EditProfileForm;
 import com.forgegrid.presentation.dto.RegistrationForm;
 import com.forgegrid.dal.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -12,15 +13,11 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
 @Service
+@RequiredArgsConstructor
 public class UserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
-
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
-        this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
-    }
 
     public void registerAndLogin(RegistrationForm registrationForm, HttpServletRequest request) throws ServletException {
         String login = registrationForm.getLogin();

@@ -3,6 +3,7 @@ package com.forgegrid.controllers;
 import com.forgegrid.bussines.service.UserService;
 import com.forgegrid.dal.entity.UserEntity;
 import com.forgegrid.presentation.dto.EditProfileForm;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -17,13 +18,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import javax.validation.Valid;
 
 @Controller
+@RequiredArgsConstructor
 public class EditProfileController {
 
     private final UserService userService;
-
-    public EditProfileController(UserService userService) {
-        this.userService = userService;
-    }
 
     @GetMapping("/account/edit")
     public String accountedit(Model model, @AuthenticationPrincipal UserEntity user) {

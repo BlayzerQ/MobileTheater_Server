@@ -4,6 +4,7 @@ import com.forgegrid.dal.entity.PasswordConfirmTokenEntity;
 import com.forgegrid.dal.entity.UserEntity;
 import com.forgegrid.dal.repository.PasswordConfirmTokenRepository;
 import com.forgegrid.dal.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -14,18 +15,12 @@ import java.util.Date;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class ResetPasswordService {
     private final PasswordConfirmTokenRepository tokenRepository;
     private final UserRepository userRepository;
     private final JavaMailSender emailSender;
     private final PasswordEncoder passwordEncoder;
-
-    public ResetPasswordService(PasswordConfirmTokenRepository tokenRepository, UserRepository userRepository, JavaMailSender emailSender, PasswordEncoder passwordEncoder) {
-        this.tokenRepository = tokenRepository;
-        this.userRepository = userRepository;
-        this.emailSender = emailSender;
-        this.passwordEncoder = passwordEncoder;
-    }
 
     public boolean hasToken(String email) {
         return tokenRepository.existsByUser_Email(email);

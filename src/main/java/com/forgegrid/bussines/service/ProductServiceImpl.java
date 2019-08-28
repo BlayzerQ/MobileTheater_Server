@@ -20,12 +20,12 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ProductEntity addItem(ProductEntity user) {
-        return productRepository.saveAndFlush(user);
+        return productRepository.save(user);
     }
 
     @Override
     public ProductEntity editItem(ProductEntity user) {
-        return productRepository.saveAndFlush(user);
+        return productRepository.save(user);
     }
 
     @Override

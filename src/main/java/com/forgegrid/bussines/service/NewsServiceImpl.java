@@ -21,12 +21,12 @@ public class NewsServiceImpl implements NewsService {
 
     @Override
     public NewsEntity addItem(NewsEntity user) {
-        return newsRepository.saveAndFlush(user);
+        return newsRepository.save(user);
     }
 
     @Override
     public NewsEntity editItem(NewsEntity user) {
-        return newsRepository.saveAndFlush(user);
+        return newsRepository.save(user);
     }
 
     @Override

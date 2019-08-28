@@ -26,7 +26,7 @@ public class UserService {
         user.setLogin(login);
         user.setEmail(registrationForm.getEmail());
         user.setPassword(passwordEncoder.encode(password));
-        userRepository.saveAndFlush(user);
+        userRepository.save(user);
         request.login(login, password);
     }
 
@@ -34,7 +34,7 @@ public class UserService {
         user.alterLogin(editProfileForm.getLogin());
         user.alterEmail(editProfileForm.getEmail());
         user.alterPassword(editProfileForm.getPassword());
-        userRepository.saveAndFlush(user);
+        userRepository.save(user);
     }
 
     public boolean isEmailRegistered(@Nullable String email) {

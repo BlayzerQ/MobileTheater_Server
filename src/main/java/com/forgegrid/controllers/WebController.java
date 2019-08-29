@@ -6,6 +6,7 @@ import com.forgegrid.bussines.service.ProductService;
 import com.forgegrid.bussines.service.TaskService;
 import com.forgegrid.dal.entity.Image;
 import com.forgegrid.dal.entity.NewsEntity;
+import com.forgegrid.dal.entity.ProductEntity;
 import com.forgegrid.dal.entity.UserEntity;
 import com.forgegrid.presentation.dto.AccountInfoForm;
 import com.forgegrid.presentation.dto.NewsArticle;
@@ -100,8 +101,13 @@ public class WebController {
 
     @GetMapping("/catalog/item/{id}")
     public String catalogItem(@PathVariable final long id, Model model) {
-        model.addAttribute("product", productService.getByID(id));
-        return "product";
+        Optional<ProductEntity> productEntityOptional = productService.getByID(id);
+        if (productEntityOptional.isPresent()) {
+            ProductEntity productEntity = productEntityOptional.get();
+            model.addAttribute("product", productEntity);
+            return "product";
+        }
+        return "redirect:/catalog";
     }
 
     @GetMapping("/payment/{id}")

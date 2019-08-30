@@ -89,7 +89,7 @@ public class WebController {
 
     @GetMapping("/tasks/task/{id}")
     public String taskItem(@PathVariable final long id, Model model) {
-        model.addAttribute("task", taskService.getByID(id));
+        taskService.getByID(id).ifPresent(task -> model.addAttribute("task", task));
         return "task";
     }
 

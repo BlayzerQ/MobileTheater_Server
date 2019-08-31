@@ -1,6 +1,6 @@
 package com.forgegrid.controllers;
 
-import com.forgegrid.bussines.service.UserService;
+import com.forgegrid.bussines.service.impl.UserService;
 import com.forgegrid.dal.entity.UserEntity;
 import com.forgegrid.presentation.dto.RegistrationForm;
 import lombok.RequiredArgsConstructor;

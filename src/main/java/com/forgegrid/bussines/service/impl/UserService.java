@@ -1,4 +1,4 @@
-package com.forgegrid.bussines.service;
+package com.forgegrid.bussines.service.impl;
 
 import com.forgegrid.dal.entity.UserEntity;
 import com.forgegrid.presentation.dto.EditProfileForm;

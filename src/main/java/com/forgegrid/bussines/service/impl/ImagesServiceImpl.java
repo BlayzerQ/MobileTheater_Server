@@ -1,5 +1,6 @@
-package com.forgegrid.bussines.service;
+package com.forgegrid.bussines.service.impl;
 
+import com.forgegrid.bussines.service.ImagesService;
 import com.forgegrid.dal.entity.Image;
 import com.forgegrid.dal.repository.ImagesRepository;
 import lombok.RequiredArgsConstructor;

@@ -1,7 +1,7 @@
 package com.forgegrid.controllers;
 
-import com.forgegrid.bussines.service.ResetPasswordService;
-import com.forgegrid.bussines.service.UserService;
+import com.forgegrid.bussines.service.impl.ResetPasswordService;
+import com.forgegrid.bussines.service.impl.UserService;
 import com.forgegrid.presentation.dto.RequestPasswordResetForm;
 import com.forgegrid.presentation.dto.ResetPasswordForm;
 import lombok.RequiredArgsConstructor;

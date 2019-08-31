@@ -1,5 +1,6 @@
-package com.forgegrid.bussines.service;
+package com.forgegrid.bussines.service.impl;
 
+import com.forgegrid.bussines.service.TaskService;
 import com.forgegrid.dal.entity.TaskEntity;
 import com.forgegrid.dal.repository.TaskRepository;
 import lombok.RequiredArgsConstructor;

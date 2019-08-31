@@ -1,5 +1,6 @@
-package com.forgegrid.bussines.service;
+package com.forgegrid.bussines.service.impl;
 
+import com.forgegrid.bussines.service.NewsService;
 import com.forgegrid.dal.entity.NewsEntity;
 import com.forgegrid.dal.repository.NewsRepository;
 import lombok.RequiredArgsConstructor;

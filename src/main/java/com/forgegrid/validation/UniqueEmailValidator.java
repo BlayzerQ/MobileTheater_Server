@@ -1,6 +1,6 @@
 package com.forgegrid.validation;
 
-import com.forgegrid.bussines.service.UserService;
+import com.forgegrid.bussines.service.impl.UserService;
 import com.forgegrid.validation.annotations.UniqueEmail;
 import lombok.RequiredArgsConstructor;
 

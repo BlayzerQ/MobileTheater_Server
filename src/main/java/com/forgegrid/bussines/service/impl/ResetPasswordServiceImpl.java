@@ -1,5 +1,6 @@
 package com.forgegrid.bussines.service.impl;
 
+import com.forgegrid.bussines.service.ResetPasswordService;
 import com.forgegrid.dal.entity.PasswordConfirmTokenEntity;
 import com.forgegrid.dal.entity.UserEntity;
 import com.forgegrid.dal.repository.PasswordConfirmTokenRepository;
@@ -16,22 +17,25 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class ResetPasswordService {
+public class ResetPasswordServiceImpl implements ResetPasswordService {
     private final PasswordConfirmTokenRepository tokenRepository;
     private final UserRepository userRepository;
     private final JavaMailSender emailSender;
     private final PasswordEncoder passwordEncoder;
 
+    @Override
     public boolean hasToken(String email) {
         return tokenRepository.existsByUser_Email(email);
     }
 
+    @Override
     public void saveToken(String token, String email, Date expirationDate) {
         UserEntity user = userRepository.getByEmail(email);
         PasswordConfirmTokenEntity tokenEntity = new PasswordConfirmTokenEntity(token, user, expirationDate);
         tokenRepository.save(tokenEntity);
     }
 
+    @Override
     public void sendResetPasswordMessage(String destination, String subject, String from, String text) {
         SimpleMailMessage mailMessage = new SimpleMailMessage();
         mailMessage.setTo(destination);
@@ -41,6 +45,7 @@ public class ResetPasswordService {
         emailSender.send(mailMessage);
     }
 
+    @Override
     public boolean validatePasswordResetToken(String token) {
         Optional<PasswordConfirmTokenEntity> possibleTokenEntity = tokenRepository.findByToken(token);
         if (!possibleTokenEntity.isPresent()) {
@@ -50,6 +55,7 @@ public class ResetPasswordService {
         return !tokenEntity.getExpirationDate().before(Calendar.getInstance().getTime());
     }
 
+    @Override
     public void updatePasswordByToken(String newPassword, String token) {
         tokenRepository.findByToken(token).ifPresent(tokenEntity -> {
             UserEntity user = tokenEntity.getUser();

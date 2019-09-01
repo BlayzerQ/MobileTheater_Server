@@ -1,5 +1,6 @@
 package com.forgegrid.bussines.service.impl;
 
+import com.forgegrid.bussines.service.UserService;
 import com.forgegrid.dal.entity.UserEntity;
 import com.forgegrid.presentation.dto.EditProfileForm;
 import com.forgegrid.presentation.dto.RegistrationForm;
@@ -14,11 +15,12 @@ import javax.servlet.http.HttpServletRequest;
 
 @Service
 @RequiredArgsConstructor
-public class UserService {
+public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
+    @Override
     public void registerAndLogin(RegistrationForm registrationForm, HttpServletRequest request) throws ServletException {
         String login = registrationForm.getLogin();
         String password = registrationForm.getPassword();
@@ -30,6 +32,7 @@ public class UserService {
         request.login(login, password);
     }
 
+    @Override
     public void updateWithFormAndPersist(EditProfileForm editProfileForm, UserEntity user) {
         user.alterLogin(editProfileForm.getLogin());
         user.alterEmail(editProfileForm.getEmail());
@@ -37,6 +40,7 @@ public class UserService {
         userRepository.save(user);
     }
 
+    @Override
     public boolean isEmailRegistered(@Nullable String email) {
         return email != null && userRepository.existsUserEntityByEmail(email);
     }

@@ -1,15 +1,17 @@
 package com.forgegrid.dal.repository;
 
 import com.forgegrid.dal.entity.UserEntity;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
-public interface UserRepository extends JpaRepository<UserEntity, Long> {
+public interface UserRepository extends CrudRepository<UserEntity, Long> {
 
-    UserEntity getUserEntityByLogin(String login);
+    Optional<UserEntity> getByLogin(String login);
 
-    boolean existsUserEntityByEmail(String email);
+    Optional<UserEntity> getByEmail(String email);
 
-    UserEntity getByEmail(String email);
+    boolean existsByEmail(String email);
 }

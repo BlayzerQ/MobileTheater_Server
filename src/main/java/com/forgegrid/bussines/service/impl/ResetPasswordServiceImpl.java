@@ -30,9 +30,10 @@ public class ResetPasswordServiceImpl implements ResetPasswordService {
 
     @Override
     public void saveToken(String token, String email, Date expirationDate) {
-        UserEntity user = userRepository.getByEmail(email);
-        PasswordConfirmTokenEntity tokenEntity = new PasswordConfirmTokenEntity(token, user, expirationDate);
-        tokenRepository.save(tokenEntity);
+        userRepository.getByEmail(email).ifPresent(user -> {
+            PasswordConfirmTokenEntity tokenEntity = new PasswordConfirmTokenEntity(token, user, expirationDate);
+            tokenRepository.save(tokenEntity);
+        });
     }
 
     @Override

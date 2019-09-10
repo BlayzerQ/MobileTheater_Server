@@ -42,6 +42,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean isEmailRegistered(@Nullable String email) {
-        return email != null && userRepository.existsUserEntityByEmail(email);
+        return email != null && userRepository.existsByEmail(email);
     }
 }

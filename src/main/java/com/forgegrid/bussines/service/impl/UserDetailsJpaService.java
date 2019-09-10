@@ -1,6 +1,5 @@
 package com.forgegrid.bussines.service.impl;
 
-import com.forgegrid.dal.entity.UserEntity;
 import com.forgegrid.dal.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Primary;
@@ -18,10 +17,7 @@ public class UserDetailsJpaService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String name) throws UsernameNotFoundException {
-        UserEntity userEntity = userRepository.getUserEntityByLogin(name);
-        if (userEntity != null) {
-            return userEntity;
-        }
-        throw new UsernameNotFoundException("User `" + name + "` not found");
+        return userRepository.getByLogin(name)
+                .orElseThrow(() -> new UsernameNotFoundException("User `" + name + "` not found"));
     }
 }

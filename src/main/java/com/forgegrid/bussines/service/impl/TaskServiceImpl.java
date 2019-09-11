@@ -21,21 +21,6 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public TaskEntity addTask(TaskEntity user) {
-        return taskRepository.save(user);
-    }
-
-    @Override
-    public TaskEntity editTask(TaskEntity user) {
-        return taskRepository.save(user);
-    }
-
-    @Override
-    public void deleteTask(Long id) {
-        taskRepository.deleteById(id);
-    }
-
-    @Override
     public List<TaskEntity> getAll() {
         return taskRepository.findAll();
     }

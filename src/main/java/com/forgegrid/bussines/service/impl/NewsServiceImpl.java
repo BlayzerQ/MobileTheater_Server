@@ -21,21 +21,6 @@ public class NewsServiceImpl implements NewsService {
     }
 
     @Override
-    public NewsEntity addItem(NewsEntity user) {
-        return newsRepository.save(user);
-    }
-
-    @Override
-    public NewsEntity editItem(NewsEntity user) {
-        return newsRepository.save(user);
-    }
-
-    @Override
-    public void deleteItem(Long id) {
-        newsRepository.deleteById(id);
-    }
-
-    @Override
     public List<NewsEntity> getAll() {
         return newsRepository.findAll();
     }

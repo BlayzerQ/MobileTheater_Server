@@ -21,21 +21,6 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ProductEntity addItem(ProductEntity user) {
-        return productRepository.save(user);
-    }
-
-    @Override
-    public ProductEntity editItem(ProductEntity user) {
-        return productRepository.save(user);
-    }
-
-    @Override
-    public void deleteItem(Long id) {
-        productRepository.deleteById(id);
-    }
-
-    @Override
     public List<ProductEntity> getAll() {
         return productRepository.findAll();
     }

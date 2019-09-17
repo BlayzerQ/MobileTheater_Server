@@ -27,6 +27,8 @@ public class ResetPasswordController {
     private String resetPasswordDomain = "localhost";
     @Value("${resetpassword.port}")
     private int resetPasswordPort = 8080;
+    @Value("${resetpassword.email}")
+    private String resetPasswordNoReplyEmail;
     private static final String resetPasswordLinkPattern = "http://<domain>:<port>/<endpoint>?token=<token>";
     private final UserService userService;
     private final ResetPasswordService resetPasswordService;
@@ -55,7 +57,7 @@ public class ResetPasswordController {
             resetPasswordService.sendResetPasswordMessage(
                     email,
                     "Password reset at ForgeGrid.com",
-                    "noreply@forgegrid.com",
+                    resetPasswordNoReplyEmail,
                     "To reset your password follow this link: " + resetPasswordLink
             );
         } catch (MailException mailException) {

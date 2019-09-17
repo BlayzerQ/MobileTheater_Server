@@ -9,6 +9,11 @@
       "name": "resetpassword.port",
       "type": "java.lang.Integer",
       "description": "Port that will be used in reset password link."
+    },
+    {
+      "name": "resetpassword.email",
+      "type": "java.lang.String",
+      "description": "Email address for sending reset password letters."
     }
   ]
 }

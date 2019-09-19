@@ -14,6 +14,11 @@
       "name": "resetpassword.email",
       "type": "java.lang.String",
       "description": "Email address for sending reset password letters."
+    },
+    {
+      "name": "front.web.url",
+      "type": "java.lang.String",
+      "description": "Front-end application URL used for CORS configuration."
     }
   ]
 }

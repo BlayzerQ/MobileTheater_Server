@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/rest/news")
-@CrossOrigin("http://localhost:3000")
+@CrossOrigin("${front.web.url}")
 @RequiredArgsConstructor
 public class NewsController {
 

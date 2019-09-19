@@ -3,6 +3,7 @@ package com.forgegrid.controllers.rest;
 import com.forgegrid.bussines.service.StorageService;
 import com.forgegrid.validation.annotations.ValidFile;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -14,6 +15,7 @@ import java.io.IOException;
 
 @RestController
 @RequestMapping("/rest/file")
+@CrossOrigin("${front.web.url}")
 public class FileUploadController {
 
     private final StorageService storageService;

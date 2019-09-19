@@ -19,6 +19,11 @@ public class StorageServiceImpl implements StorageService {
 
     @Override
     public void saveFile(MultipartFile file) throws IOException {
+        try { // TODO: Consider better place for root directory creation
+            Files.createDirectories(rootLocation);
+        } catch (IOException e) {
+            throw new IOException("Could not initialize file storage root location", e);
+        }
         String filename = StringUtils.cleanPath(file.getOriginalFilename());
         try (InputStream inputStream = file.getInputStream()) {
             Files.copy(inputStream, rootLocation.resolve(filename), StandardCopyOption.REPLACE_EXISTING);

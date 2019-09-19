@@ -48,7 +48,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/change-password",
                         "/webjars/**",
                         "/rest/news",
-                        "/rest/news/*"
+                        "/rest/news/*",
+                        "/rest/file/upload"
                 ).permitAll()
                 .anyRequest().authenticated();
         http

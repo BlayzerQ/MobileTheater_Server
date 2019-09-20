@@ -1,0 +1,26 @@
+spring:
+  datasource:
+    url: jdbc:mysql://finemine.ru:3306/admin_smarthouse?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+    username: admin_smarthouse
+    password: 6HFL2TsdOr
+  mvc:
+    view:
+      prefix: /WEB-INF/pages/
+      suffix: .jsp
+  mail:
+    host: smtp.forgegrid.com
+    username: mock
+    password: mock
+    port: 587
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+  jpa:
+    show-sql: true
+resetpassword:
+  domain: localhost
+  email: noreply@forgegrid.com
+  port: 8080

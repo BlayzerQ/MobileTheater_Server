@@ -18,6 +18,7 @@ import org.springframework.web.servlet.view.JstlView;
 import org.springframework.web.servlet.view.UrlBasedViewResolver;
 
 import javax.validation.Validator;
+import java.io.IOException;
 import java.nio.file.Paths;
 
 @Configuration
@@ -62,7 +63,7 @@ public class WebAppConfig implements WebMvcConfigurer {
     }
 
     @Bean
-    public StorageService productionStorageService() {
+    public StorageService productionStorageService() throws IOException {
         return new FileSystemStorageService(Paths.get(userFilesUploadDirectory));
     }
 

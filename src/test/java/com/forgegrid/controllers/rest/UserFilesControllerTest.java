@@ -20,6 +20,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
+import java.io.IOException;
 import java.nio.file.FileSystem;
 
 import static org.junit.Assert.assertEquals;
@@ -34,7 +35,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-public class FileUploadControllerTest {
+public class UserFilesControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -50,7 +51,7 @@ public class FileUploadControllerTest {
 
         @Bean
         @Primary
-        public StorageService inMemoryFileSystemStorageService() {
+        public StorageService inMemoryFileSystemStorageService() throws IOException {
             FileSystem fs = Jimfs.newFileSystem(Configuration.unix());
             return new FileSystemStorageService(fs.getPath(userFilesUploadDirectory));
         }

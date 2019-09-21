@@ -3,6 +3,7 @@ package com.forgegrid.controllers.rest;
 import com.forgegrid.bussines.service.StorageService;
 import com.forgegrid.validation.annotations.ValidFile;
 import com.forgegrid.validation.annotations.ValidFileName;
+import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
@@ -29,13 +30,10 @@ import java.util.Set;
 @RequestMapping("/rest/file")
 @CrossOrigin("${front.web.url}")
 @Validated
-public class FileUploadController {
+@RequiredArgsConstructor
+public class UserFilesController {
 
     private final StorageService storageService;
-
-    public FileUploadController(StorageService storageService) {
-        this.storageService = storageService;
-    }
 
     @PostMapping("/upload")
     public void uploadFile(@ValidFile @RequestParam("file") MultipartFile file, Principal principal) {

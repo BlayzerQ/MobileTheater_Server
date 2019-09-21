@@ -1,7 +1,6 @@
 package com.forgegrid.bussines.service.impl;
 
 import com.forgegrid.bussines.service.StorageService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.util.StringUtils;
@@ -15,18 +14,25 @@ import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import java.util.Optional;
 
-@RequiredArgsConstructor
 public class FileSystemStorageService implements StorageService {
 
     private final Path rootLocation;
 
-    @Override
-    public void saveFileForUsername(MultipartFile file, String username) throws IOException {
-        try { // TODO: Consider better place for root directory creation
+    public FileSystemStorageService(Path rootLocation) throws IOException {
+        this.rootLocation = rootLocation;
+        try {
             Files.createDirectories(rootLocation);
-            Files.createDirectories(rootLocation.resolve(username));
         } catch (IOException e) {
             throw new IOException("Could not initialize file storage root location", e);
+        }
+    }
+
+    @Override
+    public void saveFileForUsername(MultipartFile file, String username) throws IOException {
+        try {
+            Files.createDirectories(rootLocation.resolve(username));
+        } catch (IOException e) {
+            throw new IOException("Could not create separate directory for username " + username, e);
         }
         String filename = StringUtils.cleanPath(file.getOriginalFilename());
         try (InputStream inputStream = file.getInputStream()) {

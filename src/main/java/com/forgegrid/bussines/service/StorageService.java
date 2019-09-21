@@ -6,5 +6,5 @@ import java.io.IOException;
 
 public interface StorageService {
 
-    void saveFile(MultipartFile file) throws IOException;
+    void saveFileForUsername(MultipartFile file, String username) throws IOException;
 }

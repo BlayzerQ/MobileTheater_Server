@@ -1,8 +1,10 @@
 package com.forgegrid.controllers.rest;
 
 import com.forgegrid.bussines.service.StorageService;
+import com.forgegrid.dal.entity.UserEntity;
 import com.forgegrid.validation.annotations.ValidFile;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,9 +27,9 @@ public class FileUploadController {
     }
 
     @PostMapping("/upload")
-    public void uploadFile(@ValidFile @RequestParam("file") MultipartFile file) {
+    public void uploadFile(@ValidFile @RequestParam("file") MultipartFile file, @AuthenticationPrincipal UserEntity user) {
         try {
-            storageService.saveFile(file);
+            storageService.saveFileForUsername(file, user.getLogin());
         } catch (IOException e) {
             e.printStackTrace();
             throw new ResponseStatusException(HttpStatus.INSUFFICIENT_STORAGE, "IO error happened while saving file");

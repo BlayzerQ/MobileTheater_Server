@@ -19,6 +19,11 @@
       "name": "front.web.url",
       "type": "java.lang.String",
       "description": "Front-end application URL used for CORS configuration."
+    },
+    {
+      "name": "front.upload-dir",
+      "type": "java.lang.String",
+      "description": "Directory used as user file storage."
     }
   ]
 }

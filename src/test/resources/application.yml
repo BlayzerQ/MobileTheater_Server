@@ -25,3 +25,4 @@ resetpassword:
 front:
   web:
     url: http://localhost:3000
+  upload-dir: ./upload

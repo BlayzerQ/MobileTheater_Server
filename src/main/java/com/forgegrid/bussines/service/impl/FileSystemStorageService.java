@@ -1,6 +1,7 @@
 package com.forgegrid.bussines.service.impl;
 
 import com.forgegrid.bussines.service.StorageService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.util.StringUtils;
@@ -11,13 +12,13 @@ import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.Optional;
 
+@RequiredArgsConstructor
 public class FileSystemStorageService implements StorageService {
 
-    private final Path rootLocation = Paths.get("./upload");
+    private final Path rootLocation;
 
     @Override
     public void saveFileForUsername(MultipartFile file, String username) throws IOException {

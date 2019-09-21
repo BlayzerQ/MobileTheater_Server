@@ -24,7 +24,7 @@ public class FileSystemStorageService implements StorageService {
     public void saveFileForUsername(MultipartFile file, String username) throws IOException {
         try { // TODO: Consider better place for root directory creation
             Files.createDirectories(rootLocation);
-            Files.createDirectory(rootLocation.resolve(username));
+            Files.createDirectories(rootLocation.resolve(username));
         } catch (IOException e) {
             throw new IOException("Could not initialize file storage root location", e);
         }

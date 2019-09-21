@@ -75,6 +75,36 @@ public class FileUploadControllerTest {
 
     @Test
     @WithMockUser
+    public void uploadFileWithInvalidNameTest() throws Exception {
+        MockMultipartFile multipartFile = new MockMultipartFile("file", "...txt", "text/plain", "foo".getBytes());
+        MvcResult response = mockMvc.perform(multipart("/rest/file/upload").file(multipartFile).with(csrf()))
+                .andExpect(status().isBadRequest()).andReturn();
+        assertEquals(response.getResponse().getContentAsString(), "Invalid file!\n");
+        then(storageService).shouldHaveZeroInteractions();
+    }
+
+    @Test
+    @WithMockUser
+    public void uploadFileWithNullOriginalNameTest() throws Exception {
+        MockMultipartFile multipartFile = new MockMultipartFile("file", null, "text/plain", "foo".getBytes());
+        MvcResult response = mockMvc.perform(multipart("/rest/file/upload").file(multipartFile).with(csrf()))
+                .andExpect(status().isBadRequest()).andReturn();
+        assertEquals(response.getResponse().getContentAsString(), "Invalid file!\n");
+        then(storageService).shouldHaveZeroInteractions();
+    }
+
+    @Test
+    @WithMockUser
+    public void uploadFileWithInvalidSymbolInNameTest() throws Exception {
+        MockMultipartFile multipartFile = new MockMultipartFile("file", "foo?bar.txt", "text/plain", "foo".getBytes());
+        MvcResult response = mockMvc.perform(multipart("/rest/file/upload").file(multipartFile).with(csrf()))
+                .andExpect(status().isBadRequest()).andReturn();
+        assertEquals(response.getResponse().getContentAsString(), "Invalid file!\n");
+        then(storageService).shouldHaveZeroInteractions();
+    }
+
+    @Test
+    @WithMockUser
     public void uploadAndRetrieveFileTest() throws Exception {
         MockMultipartFile multipartFile = new MockMultipartFile("file", "test.txt", "text/plain", "foo".getBytes());
         mockMvc.perform(multipart("/rest/file/upload").file(multipartFile).with(csrf()))
@@ -114,5 +144,26 @@ public class FileUploadControllerTest {
         assertNull(downloadRequestResult.getResponse().getContentType());
         assertTrue(downloadRequestResult.getResponse().getContentAsString().isEmpty());
         then(storageService).should().retrieveFileForUsername("test", "user");
+    }
+
+    @Test
+    @WithMockUser
+    public void retrieveFileWithInvalidNameTest() throws Exception {
+        MvcResult downloadRequestResult = mockMvc.perform(get("/rest/file/retrieve/...txt"))
+                .andExpect(status().isBadRequest()).andReturn();
+        assertEquals(downloadRequestResult.getResponse().getContentType(), "text/plain;charset=ISO-8859-1");
+        assertEquals(downloadRequestResult.getResponse().getContentAsString(), "Invalid file name!\n");
+        then(storageService).shouldHaveZeroInteractions();
+    }
+
+    @Test
+    @WithMockUser
+    public void retrieveFileWithInvalidSymbolInNameTest() throws Exception {
+        MvcResult downloadRequestResult = mockMvc.perform(get("/rest/file/retrieve/foo`bar.txt"))
+                .andExpect(status().isBadRequest()).andReturn();
+        assertTrue(downloadRequestResult.getResponse().getContentType() != null &&
+                downloadRequestResult.getResponse().getContentType().startsWith("text/plain"));
+        assertEquals(downloadRequestResult.getResponse().getContentAsString(), "Invalid file name!\n");
+        then(storageService).shouldHaveZeroInteractions();
     }
 }

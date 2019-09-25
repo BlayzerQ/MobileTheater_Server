@@ -18,9 +18,16 @@ spring:
           auth: true
           starttls:
             enable: true
+    servlet:
+      multipart:
+        max-file-size: 1G
   jpa:
     show-sql: true
 resetpassword:
   domain: localhost
   email: noreply@forgegrid.com
   port: 8080
+front:
+  web:
+    url: http://localhost:3000
+  upload-dir: ./upload

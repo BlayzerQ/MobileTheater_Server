@@ -22,3 +22,7 @@ resetpassword:
   domain: localhost
   email: noreply@forgegrid.com
   port: 8080
+front:
+  web:
+    url: http://localhost:3000
+  upload-dir: ./upload

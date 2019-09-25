@@ -1,11 +1,15 @@
 package com.forgegrid.config;
 
+import com.forgegrid.bussines.service.StorageService;
+import com.forgegrid.bussines.service.impl.FileSystemStorageService;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
+import org.springframework.validation.beanvalidation.MethodValidationPostProcessor;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
@@ -14,11 +18,16 @@ import org.springframework.web.servlet.view.JstlView;
 import org.springframework.web.servlet.view.UrlBasedViewResolver;
 
 import javax.validation.Validator;
+import java.io.IOException;
+import java.nio.file.Paths;
 
 @Configuration
 @EnableWebMvc
 @ComponentScan("com.forgegrid")
 public class WebAppConfig implements WebMvcConfigurer {
+
+    @Value("${front.upload-dir}")
+    private String userFilesUploadDirectory;
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
@@ -51,5 +60,15 @@ public class WebAppConfig implements WebMvcConfigurer {
     @Bean
     public Validator validatorFactory() {
         return new LocalValidatorFactoryBean();
+    }
+
+    @Bean
+    public StorageService productionStorageService() throws IOException {
+        return new FileSystemStorageService(Paths.get(userFilesUploadDirectory));
+    }
+
+    @Bean
+    public MethodValidationPostProcessor methodValidationPostProcessor() {
+        return new MethodValidationPostProcessor();
     }
 }

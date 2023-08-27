@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="2022-07-28--01-update-mt_spectacle" author="ParfilovOV">
+        <addColumn tableName="mt_spectacle">
+            <column name="type" type="numeric"/>
+            <column name="creator_uuid" type="varchar(100)"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="2022-07-28--01-create-mt_users" author="ParfilovOV">
+        <createTable tableName="mt_users">
+            <column name="id" type="numeric"/>
+            <column name="phone" type="varchar(100)">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="uuid" type="varchar(100)">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="2022-07-28--01-create-mt_purchases" author="ParfilovOV">
+        <createTable tableName="mt_purchases">
+            <column name="id" type="numeric"/>
+            <column name="spectacle_id" type="numeric">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="user_uuid" type="varchar(100)">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="purchase_type" type="varchar(100)"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="2022-07-28--01-create-mt_promocodes" author="ParfilovOV">
+        <createTable tableName="mt_promocodes">
+            <column name="id" type="numeric"/>
+            <column name="spectacle_id" type="numeric">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="user_uuid" type="varchar(100)">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="promocode" type="varchar(100)"/>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>

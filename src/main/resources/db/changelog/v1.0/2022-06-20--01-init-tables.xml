@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="2022-06-20--01-create-mt_spectacle" author="ParfilovOV">
+        <createTable tableName="mt_spectacle">
+            <column name="id" type="numeric">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="spectacle_id" type="numeric"/>
+            <column name="name" type="varchar(100)"/>
+            <column name="short_desc" type="varchar(1000)"/>
+            <column name="full_desc" type="varchar(1000)"/>
+            <column name="authors" type="varchar(1000)"/>
+            <column name="image" type="varchar(100)"/>
+            <column name="image_full" type="varchar(200)"/>
+            <column name="walking_time" type="varchar(200)"/>
+            <column name="is_linear" type="boolean"/>
+            <column name="price" type="varchar(250)"/>
+            <column name="fragment" type="varchar(200)"/>
+            <column name="is_car_spectacle" type="boolean"/>
+            <column name="is_purshased" type="boolean"/>
+            <column name="is_availible" type="boolean"/>
+            <column name="language" type="varchar(200)"/>
+            <column name="age_rating" type="varchar(100)"/>
+            <column name="create_date" type="timestamp"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="2022-06-20--01-create-mt_chapter" author="ParfilovOV">
+        <createTable tableName="mt_chapter">
+            <column name="id" type="numeric"/>
+            <column name="spectacle_id" type="numeric">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="chapter_id" type="numeric">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="chapter_path" type="numeric">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="name" type="varchar(100)"/>
+            <column name="description" type="varchar(100)"/>
+            <column name="latitude" type="varchar(100)"/>
+            <column name="longitude" type="varchar(100)"/>
+            <column name="audio" type="varchar(100)"/>
+            <column name="start_delay" type="varchar(100)"/>
+            <column name="final_text" type="varchar(100)"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="2022-06-20--01-create-mt_media" author="ParfilovOV">
+        <createTable tableName="mt_media">
+            <column name="id" type="numeric">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="spectacle_id" type="numeric">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="chapter_id" type="numeric">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="chapter_path" type="numeric">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="type" type="varchar(100)"/>
+            <column name="content" type="varchar(100)"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="2022-06-20--01-create-mt_notification" author="ParfilovOV">
+        <createTable tableName="mt_notification">
+            <column name="id" type="numeric">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="spectacle_id" type="numeric">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="chapter_id" type="numeric">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="chapter_path" type="numeric">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="title" type="varchar(100)"/>
+            <column name="text" type="varchar(100)"/>
+            <column name="start_on_chapter" type="numeric"/>
+            <column name="silence" type="boolean"/>
+            <column name="time" type="numeric"/>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>

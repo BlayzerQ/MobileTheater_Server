@@ -69,6 +69,7 @@ public class WebController {
         }
 
         //Sort spectacles (delete this, if do sorting into entity)
+        Collections.sort(spectacles, Comparator.comparingInt(EntitySpectacle::getSpectacleId).reversed());
         for(EntitySpectacle spectacle : spectacles) {
             Collections.sort(spectacle.chapters, Comparator.comparingInt(EntityChapter::getChapterId));
         }
@@ -201,6 +202,18 @@ public class WebController {
         }
         log.info("User send auth request: " + auth + " | Status: " + auth.status);
         return auth;
+    }
+
+    @PostMapping("/v0/createSpectacle")
+    @ApiOperation("Do Create Spectacle")
+    public EntitySpectacle createSpectacle(@RequestHeader Map<String, String> headers, @RequestBody String spectacle) {
+        if(headers.containsKey("authtoken") && headers.get("authtoken").equals("oXekBeY8HDshxXtF=YwHfFKpzpH6fOhY2FzhQA0LyYOsZ87!4z9GQkaQF8i0pkAK")) {
+            EntitySpectacle entitySpectacle = new Gson().fromJson(spectacle, EntitySpectacle.class);
+            spectacleService.saveSpectacle(entitySpectacle);
+            return entitySpectacle;
+        } else {
+            return null;
+        }
     }
 
     private PaymentResponse createPayment(PaymentRequest mrRequest) {
